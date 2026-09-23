@@ -1,0 +1,22 @@
+<svg viewBox="0 0 76 140" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="frameGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8b97a1"/>
+      <stop offset="15%" stop-color="#5b6670"/>
+      <stop offset="50%" stop-color="#3b444c"/>
+      <stop offset="85%" stop-color="#5b6670"/>
+      <stop offset="100%" stop-color="#8b97a1"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="76" height="140" fill="url(#frameGrad)"/>
+  <rect x="4" y="4" width="68" height="132" fill="#161b1f"/>
+  <!-- 角のボルト -->
+  <g fill="#0d1115">
+    <circle cx="9" cy="9" r="2.4"/><circle cx="67" cy="9" r="2.4"/>
+    <circle cx="9" cy="131" r="2.4"/><circle cx="67" cy="131" r="2.4"/>
+    <circle cx="9" cy="70" r="2.4"/><circle cx="67" cy="70" r="2.4"/>
+  </g>
+  <!-- 上下の警戒ライン -->
+  <rect x="4" y="4" width="68" height="3" fill="#4fd9ec" opacity="0.7"/>
+  <rect x="4" y="133" width="68" height="3" fill="#4fd9ec" opacity="0.7"/>
+</svg>

@@ -1,0 +1,54 @@
+<svg viewBox="0 0 200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="coreGradI" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#c400a0" stop-opacity="0.05"/>
+      <stop offset="50%" stop-color="#f090e0" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#c400a0" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="edgeGlowLI" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fff0fb" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#e050c8" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="edgeGlowRI" x1="100%" y1="0%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#fff0fb" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#e050c8" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="interactCap" width="24" height="24" patternUnits="userSpaceOnUse">
+      <rect width="24" height="24" fill="#1a081a"/>
+      <circle cx="12" cy="12" r="4" fill="#e050c8"/>
+    </pattern>
+    <filter id="softBlurI" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+  </defs>
+
+  <!-- 上下キャップ：ボタン意匠（インタラクト操作を示唆） -->
+  <rect x="0" y="0" width="200" height="36" fill="url(#interactCap)"/>
+  <rect x="0" y="34" width="200" height="6" fill="#12061a"/>
+  <rect x="0" y="764" width="200" height="36" fill="url(#interactCap)"/>
+  <rect x="0" y="760" width="200" height="6" fill="#12061a"/>
+
+  <rect x="0" y="40" width="200" height="720" fill="url(#coreGradI)"/>
+
+  <!-- 縦の光の筋 -->
+  <g opacity="0.85">
+    <rect x="16" y="44" width="3" height="712" fill="#f8c9ee" opacity="0.5" filter="url(#softBlurI)"/>
+    <rect x="36" y="44" width="1.5" height="712" fill="#fff0fb" opacity="0.8"/>
+    <rect x="60" y="44" width="2" height="712" fill="#f090e0" opacity="0.4" filter="url(#softBlurI)"/>
+    <rect x="97" y="44" width="4" height="712" fill="#fff0fb" opacity="0.9"/>
+    <rect x="103" y="44" width="2" height="712" fill="#e050c8" opacity="0.5"/>
+    <rect x="140" y="44" width="2" height="712" fill="#f090e0" opacity="0.45" filter="url(#softBlurI)"/>
+    <rect x="164" y="44" width="1.5" height="712" fill="#fff0fb" opacity="0.75"/>
+    <rect x="182" y="44" width="3" height="712" fill="#f8c9ee" opacity="0.5" filter="url(#softBlurI)"/>
+  </g>
+
+  <!-- 中央：待機中を示す点滅風のマーク -->
+  <g fill="#fff0fb" opacity="0.8">
+    <circle cx="100" cy="300" r="6"/>
+    <circle cx="100" cy="400" r="6"/>
+    <circle cx="100" cy="500" r="6"/>
+  </g>
+
+  <rect x="0" y="40" width="26" height="720" fill="url(#edgeGlowLI)"/>
+  <rect x="174" y="40" width="26" height="720" fill="url(#edgeGlowRI)"/>
+</svg>

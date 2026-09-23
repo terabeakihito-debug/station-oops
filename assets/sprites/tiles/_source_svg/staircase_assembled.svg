@@ -1,0 +1,79 @@
+<svg viewBox="0 0 1100 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="topFace" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#8fa3ac"/>
+      <stop offset="100%" stop-color="#6b7d85"/>
+    </linearGradient>
+    <linearGradient id="frontFace" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3d4a50"/>
+      <stop offset="100%" stop-color="#1f272b"/>
+    </linearGradient>
+    <linearGradient id="sideFace" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2a3438"/>
+      <stop offset="100%" stop-color="#4a5a61"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ステップ定義: 各ステップは 幅300 x 奥行140(見かけ) x 厚み110、
+       350pxずつ右へ、150pxずつ上へずらして3段配置 -->
+
+  <!-- ===== ステップ1（左下・最初の段）===== -->
+  <g transform="translate(0,300)">
+    <polygon points="0,110 300,110 300,220 0,220" fill="url(#frontFace)"/>
+    <polygon points="0,110 60,55 360,55 300,110" fill="url(#topFace)"/>
+    <polygon points="300,110 360,55 360,165 300,220" fill="url(#sideFace)"/>
+    <!-- 天面のグリップ・トレッドライン -->
+    <g stroke="#4a5a61" stroke-width="3" opacity="0.6">
+      <line x1="30" y1="97" x2="90" y2="70"/>
+      <line x1="90" y1="97" x2="150" y2="70"/>
+      <line x1="150" y1="97" x2="210" y2="70"/>
+      <line x1="210" y1="97" x2="270" y2="70"/>
+    </g>
+    <!-- 前面の発光トリム -->
+    <rect x="0" y="110" width="300" height="6" fill="#7fe8f5" opacity="0.8"/>
+    <rect x="0" y="214" width="300" height="4" fill="#0d1418"/>
+    <!-- リベット -->
+    <g fill="#0d1418">
+      <circle cx="14" cy="165" r="3"/><circle cx="286" cy="165" r="3"/>
+    </g>
+  </g>
+
+  <!-- ===== ステップ2（中段）===== -->
+  <g transform="translate(350,150)">
+    <polygon points="0,110 300,110 300,370 0,370" fill="url(#frontFace)"/>
+    <polygon points="0,110 60,55 360,55 300,110" fill="url(#topFace)"/>
+    <polygon points="300,110 360,55 360,315 300,370" fill="url(#sideFace)"/>
+    <g stroke="#4a5a61" stroke-width="3" opacity="0.6">
+      <line x1="30" y1="97" x2="90" y2="70"/>
+      <line x1="90" y1="97" x2="150" y2="70"/>
+      <line x1="150" y1="97" x2="210" y2="70"/>
+      <line x1="210" y1="97" x2="270" y2="70"/>
+    </g>
+    <rect x="0" y="110" width="300" height="6" fill="#7fe8f5" opacity="0.8"/>
+    <rect x="0" y="364" width="300" height="4" fill="#0d1418"/>
+    <g fill="#0d1418">
+      <circle cx="14" cy="240" r="3"/><circle cx="286" cy="240" r="3"/>
+      <circle cx="14" cy="320" r="3"/><circle cx="286" cy="320" r="3"/>
+    </g>
+  </g>
+
+  <!-- ===== ステップ3（最上段）===== -->
+  <g transform="translate(700,0)">
+    <polygon points="0,110 300,110 300,520 0,520" fill="url(#frontFace)"/>
+    <polygon points="0,110 60,55 360,55 300,110" fill="url(#topFace)"/>
+    <polygon points="300,110 360,55 360,465 300,520" fill="url(#sideFace)"/>
+    <g stroke="#4a5a61" stroke-width="3" opacity="0.6">
+      <line x1="30" y1="97" x2="90" y2="70"/>
+      <line x1="90" y1="97" x2="150" y2="70"/>
+      <line x1="150" y1="97" x2="210" y2="70"/>
+      <line x1="210" y1="97" x2="270" y2="70"/>
+    </g>
+    <rect x="0" y="110" width="300" height="6" fill="#7fe8f5" opacity="0.8"/>
+    <rect x="0" y="514" width="300" height="4" fill="#0d1418"/>
+    <g fill="#0d1418">
+      <circle cx="14" cy="200" r="3"/><circle cx="286" cy="200" r="3"/>
+      <circle cx="14" cy="320" r="3"/><circle cx="286" cy="320" r="3"/>
+      <circle cx="14" cy="440" r="3"/><circle cx="286" cy="440" r="3"/>
+    </g>
+  </g>
+</svg>

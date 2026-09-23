@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/levels/Ladder.gd" id="1_ladder_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/ladder_v2.png" id="2_ladder_tex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ladder"]
+size = Vector2(195, 260)
+
+[node name="Ladder" type="Area2D"]
+script = ExtResource("1_ladder_script")
+monitoring = true
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ladder")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ladder_tex")
+scale = Vector2(0.2539, 0.2539)

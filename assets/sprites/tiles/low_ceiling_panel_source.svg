@@ -1,0 +1,77 @@
+<svg viewBox="0 0 300 194" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="panelGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3a4650"/>
+      <stop offset="55%" stop-color="#252f38"/>
+      <stop offset="100%" stop-color="#161d24"/>
+    </linearGradient>
+    <linearGradient id="pipeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7fb8c9"/>
+      <stop offset="45%" stop-color="#3f5c66"/>
+      <stop offset="100%" stop-color="#1c2a2f"/>
+    </linearGradient>
+    <linearGradient id="glowLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5fe0ff" stop-opacity="0"/>
+      <stop offset="50%" stop-color="#5fe0ff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#5fe0ff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ベースの金属パネル -->
+  <rect x="0" y="0" width="300" height="194" fill="url(#panelGrad)"/>
+
+  <!-- パネルの継ぎ目（縦） -->
+  <g stroke="#0d1216" stroke-width="2" opacity="0.8">
+    <line x1="0" y1="0" x2="0" y2="194"/>
+    <line x1="75" y1="0" x2="75" y2="194"/>
+    <line x1="150" y1="0" x2="150" y2="194"/>
+    <line x1="225" y1="0" x2="225" y2="194"/>
+    <line x1="300" y1="0" x2="300" y2="194"/>
+  </g>
+
+  <!-- リベット（各パネル角） -->
+  <g fill="#0d1216">
+    <circle cx="10" cy="12" r="3"/><circle cx="65" cy="12" r="3"/>
+    <circle cx="10" cy="182" r="3"/><circle cx="65" cy="182" r="3"/>
+    <circle cx="85" cy="12" r="3"/><circle cx="140" cy="12" r="3"/>
+    <circle cx="85" cy="182" r="3"/><circle cx="140" cy="182" r="3"/>
+    <circle cx="160" cy="12" r="3"/><circle cx="215" cy="12" r="3"/>
+    <circle cx="160" cy="182" r="3"/><circle cx="215" cy="182" r="3"/>
+    <circle cx="235" cy="12" r="3"/><circle cx="290" cy="12" r="3"/>
+    <circle cx="235" cy="182" r="3"/><circle cx="290" cy="182" r="3"/>
+  </g>
+
+  <!-- 太い配管（横断） -->
+  <rect x="0" y="30" width="300" height="26" fill="url(#pipeGrad)"/>
+  <rect x="0" y="30" width="300" height="4" fill="#9adbe8" opacity="0.6"/>
+  <rect x="0" y="52" width="300" height="4" fill="#0d1216" opacity="0.7"/>
+
+  <!-- 配管の継ぎ目リング -->
+  <g fill="#111a1e" opacity="0.85">
+    <rect x="70" y="27" width="8" height="32"/>
+    <rect x="150" y="27" width="8" height="32"/>
+    <rect x="228" y="27" width="8" height="32"/>
+  </g>
+
+  <!-- 細いダクト（下段） -->
+  <rect x="0" y="140" width="300" height="14" fill="#1c2529"/>
+  <g stroke="#0a0f12" stroke-width="1.5" opacity="0.8">
+    <line x1="20" y1="140" x2="20" y2="154"/>
+    <line x1="60" y1="140" x2="60" y2="154"/>
+    <line x1="100" y1="140" x2="100" y2="154"/>
+    <line x1="140" y1="140" x2="140" y2="154"/>
+    <line x1="180" y1="140" x2="180" y2="154"/>
+    <line x1="220" y1="140" x2="220" y2="154"/>
+    <line x1="260" y1="140" x2="260" y2="154"/>
+  </g>
+
+  <!-- 警戒ライン（発光） -->
+  <rect x="0" y="94" width="300" height="3" fill="url(#glowLine)"/>
+
+  <!-- 下端の発光アクセント（低さを示す危険ライン） -->
+  <rect x="0" y="188" width="300" height="6" fill="#5fe0ff" opacity="0.55"/>
+  <rect x="0" y="188" width="300" height="2" fill="#eafcff" opacity="0.8"/>
+
+  <!-- 全体に軽いビネット -->
+  <rect x="0" y="0" width="300" height="194" fill="#000000" opacity="0.08"/>
+</svg>

@@ -1,0 +1,60 @@
+<svg viewBox="0 0 200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="coreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff6a00" stop-opacity="0.05"/>
+      <stop offset="50%" stop-color="#ffb347" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#ff6a00" stop-opacity="0.05"/>
+    </linearGradient>
+    <linearGradient id="edgeGlowL" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#fff3d6" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#ff8c1a" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="edgeGlowR" x1="100%" y1="0%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#fff3d6" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#ff8c1a" stop-opacity="0"/>
+    </linearGradient>
+    <pattern id="stripes" width="28" height="28" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+      <rect width="28" height="28" fill="#1a1006"/>
+      <rect width="14" height="28" fill="#ff9d2e"/>
+    </pattern>
+    <filter id="softBlur" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4"/>
+    </filter>
+  </defs>
+
+  <!-- 上部：警告キャップ -->
+  <rect x="0" y="0" width="200" height="36" fill="url(#stripes)"/>
+  <rect x="0" y="34" width="200" height="6" fill="#120a04"/>
+
+  <!-- 下部：警告キャップ -->
+  <rect x="0" y="764" width="200" height="36" fill="url(#stripes)"/>
+  <rect x="0" y="760" width="200" height="6" fill="#120a04"/>
+
+  <!-- コアのエネルギーフィールド -->
+  <rect x="0" y="40" width="200" height="720" fill="url(#coreGrad)"/>
+
+  <!-- 縦の光の筋（不規則な間隔・太さで自然に） -->
+  <g opacity="0.85">
+    <rect x="18" y="44" width="3" height="712" fill="#ffd08a" opacity="0.5" filter="url(#softBlur)"/>
+    <rect x="34" y="44" width="1.5" height="712" fill="#fff3d6" opacity="0.8"/>
+    <rect x="55" y="44" width="2" height="712" fill="#ffb347" opacity="0.4" filter="url(#softBlur)"/>
+    <rect x="95" y="44" width="4" height="712" fill="#fff3d6" opacity="0.9"/>
+    <rect x="100" y="44" width="2" height="712" fill="#ff9d2e" opacity="0.5"/>
+    <rect x="140" y="44" width="2" height="712" fill="#ffb347" opacity="0.45" filter="url(#softBlur)"/>
+    <rect x="165" y="44" width="1.5" height="712" fill="#fff3d6" opacity="0.75"/>
+    <rect x="180" y="44" width="3" height="712" fill="#ffd08a" opacity="0.5" filter="url(#softBlur)"/>
+  </g>
+
+  <!-- 横断する薄いスキャンライン（複数、質感付け） -->
+  <g opacity="0.35" stroke="#fff3d6" stroke-width="1.5">
+    <line x1="0" y1="140" x2="200" y2="140"/>
+    <line x1="0" y1="260" x2="200" y2="260"/>
+    <line x1="0" y1="380" x2="200" y2="380"/>
+    <line x1="0" y1="500" x2="200" y2="500"/>
+    <line x1="0" y1="620" x2="200" y2="620"/>
+  </g>
+
+  <!-- 左右の縁の強い発光ライン -->
+  <rect x="0" y="40" width="26" height="720" fill="url(#edgeGlowL)"/>
+  <rect x="174" y="40" width="26" height="720" fill="url(#edgeGlowR)"/>
+</svg>

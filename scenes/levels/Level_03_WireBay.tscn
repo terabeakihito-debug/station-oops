@@ -1,0 +1,113 @@
+[gd_scene load_steps=16 format=3]
+
+[ext_resource type="Script" path="res://scripts/levels/Level03.gd" id="1_level_script"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://scenes/echo/Echo.tscn" id="3_echo"]
+[ext_resource type="TileSet" path="res://assets/tilesets/stage_tiles.tres" id="4_tileset"]
+[ext_resource type="PackedScene" path="res://scenes/levels/WirePlatform.tscn" id="5_platform"]
+[ext_resource type="PackedScene" path="res://scenes/levels/WireHook.tscn" id="6_hook"]
+[ext_resource type="PackedScene" path="res://scenes/levels/LevelExit.tscn" id="7_exit"]
+[ext_resource type="Texture2D" path="res://assets/sprites/backgrounds/wire_bay.png" id="8_bg"]
+[ext_resource type="PackedScene" path="res://scenes/levels/Ladder.tscn" id="9_ladder"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/cable_footholds_transparent.png" id="10_cable_tex"]
+[ext_resource type="PackedScene" path="res://scenes/levels/FallZone.tscn" id="11_fallzone"]
+[ext_resource type="PackedScene" path="res://scenes/levels/PowerSwitch.tscn" id="12_switch"]
+[ext_resource type="PackedScene" path="res://scenes/levels/WiringPanel.tscn" id="13_panel"]
+[ext_resource type="PackedScene" path="res://scenes/ui/TimerHUD.tscn" id="14_timer_hud"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wirebay"]
+font_size = 24
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cable_ladder"]
+size = Vector2(120, 512)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_switch_ladder"]
+size = Vector2(90, 384)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fallzone_wirebay"]
+size = Vector2(3840, 100)
+
+[node name="Level_03_WireBay" type="Node2D"]
+script = ExtResource("1_level_script")
+
+[node name="TimerHUD" parent="." instance=ExtResource("14_timer_hud")]
+
+[node name="StageBackground" type="ParallaxBackground" parent="."]
+layer = -1
+
+[node name="BackgroundLayer" type="ParallaxLayer" parent="StageBackground"]
+motion_scale = Vector2(0.3, 0.3)
+motion_mirroring = Vector2(1280, 0)
+
+[node name="BackgroundSprite" type="Sprite2D" parent="StageBackground/BackgroundLayer"]
+texture = ExtResource("8_bg")
+position = Vector2(640, 360)
+scale = Vector2(0.6667, 0.6667)
+
+[node name="HelpLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="HelpLayer"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 700.0
+offset_bottom = 100.0
+text = "STATION OOPS - WIRE BAY
+A/D+矢印=移動  Space=ジャンプ  Eキーでインタラクト
+配線盤面で通電→数秒以内に足場を渡ってはしごの先のスイッチON
+→ONになったら数秒以内に少し離れたドアへ。間に合わないとやり直し
+足場は時間が経つと自動で元の位置へ戻る。左上のケーブル足場は登れる寄り道"
+label_settings = SubResource("LabelSettings_wirebay")
+
+[node name="Ground" type="TileMapLayer" parent="."]
+tile_set = ExtResource("4_tileset")
+
+[node name="WirePlatform" parent="." instance=ExtResource("5_platform")]
+position = Vector2(2106, 624)
+
+[node name="WireHook" parent="." instance=ExtResource("6_hook")]
+position = Vector2(250, 590)
+platform_path = NodePath("../WirePlatform")
+pull_offset = Vector2(-954, 0)
+
+[node name="WiringPanel" parent="." instance=ExtResource("13_panel")]
+position = Vector2(1606, 600)
+
+[node name="SwitchLadder" parent="." instance=ExtResource("9_ladder")]
+position = Vector2(1986, 448)
+
+[node name="CollisionShape2D" parent="SwitchLadder"]
+shape = SubResource("RectangleShape2D_switch_ladder")
+
+[node name="Sprite2D" parent="SwitchLadder"]
+scale = Vector2(0.1172, 0.375)
+
+[node name="PowerSwitch" parent="." instance=ExtResource("12_switch")]
+position = Vector2(2240, 232)
+wiring_panel_path = NodePath("../WiringPanel")
+
+[node name="CableLadder" parent="." instance=ExtResource("9_ladder")]
+position = Vector2(600, 384)
+
+[node name="CollisionShape2D" parent="CableLadder"]
+shape = SubResource("RectangleShape2D_cable_ladder")
+
+[node name="Sprite2D" parent="CableLadder"]
+texture = ExtResource("10_cable_tex")
+scale = Vector2(0.3324, 0.5435)
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(150, 500)
+
+[node name="Echo" parent="." instance=ExtResource("3_echo")]
+position = Vector2(110, 460)
+target_path = NodePath("../Player")
+
+[node name="LevelExit" parent="." instance=ExtResource("7_exit")]
+position = Vector2(3656, 576)
+next_scene_path = "res://scenes/ui/Cutscene_SizeDock.tscn"
+
+[node name="FallZone" parent="." instance=ExtResource("11_fallzone")]
+position = Vector2(1920, 900)
+
+[node name="CollisionShape2D" parent="FallZone"]
+shape = SubResource("RectangleShape2D_fallzone_wirebay")

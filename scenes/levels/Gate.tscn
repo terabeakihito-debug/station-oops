@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/levels/Gate.gd" id="1_gate_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/boss/glow_radial.png" id="2_glow_tex"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/barrier_scan.png" id="3_barrier_scan"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/barrier_interact.png" id="4_barrier_interact"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/barrier_big.png" id="5_barrier_big"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gate"]
+size = Vector2(40, 700)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sizedetector"]
+size = Vector2(60, 700)
+
+[node name="Gate" type="StaticBody2D"]
+script = ExtResource("1_gate_script")
+barrier_scan_tex = ExtResource("3_barrier_scan")
+barrier_interact_tex = ExtResource("4_barrier_interact")
+barrier_big_tex = ExtResource("5_barrier_big")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_gate")
+
+[node name="SizeDetector" type="Area2D" parent="."]
+position = Vector2(0, -100)
+monitoring = true
+monitorable = false
+
+[node name="SizeDetectorShape" type="CollisionShape2D" parent="SizeDetector"]
+shape = SubResource("RectangleShape2D_sizedetector")
+
+[node name="Visual" type="Sprite2D" parent="."]
+position = Vector2(0, -100)
+modulate = Color(1, 1, 1, 0.75)
+
+[node name="Flash" type="Sprite2D" parent="."]
+position = Vector2(0, -100)
+modulate = Color(0.6, 0.9, 1, 0)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_glow_tex")
+z_index = 1
+
+[node name="Label" type="Label" parent="."]
+offset_left = -60.0
+offset_top = -375.0
+offset_right = 60.0
+offset_bottom = -352.0
+horizontal_alignment = 1
+text = "Qでスキャン"
+
+[node name="PromptLabel" type="Label" parent="."]
+offset_left = -30.0
+offset_top = -400.0
+offset_right = 30.0
+offset_bottom = -377.0
+horizontal_alignment = 1
+text = "[E]"

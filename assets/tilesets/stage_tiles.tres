@@ -1,0 +1,38 @@
+[gd_resource type="TileSet" format=3 uid="uid://bpf3dtgsoqhyf"]
+
+[ext_resource type="Texture2D" uid="uid://badcxycwfsa7m" path="res://assets/tilesets/tile_stage0.png" id="1_stage0"]
+[ext_resource type="Texture2D" uid="uid://crd4vugfjm5y7" path="res://assets/tilesets/tile_fliplab.png" id="2_fliplab"]
+[ext_resource type="Texture2D" uid="uid://drl7oetenjdk7" path="res://assets/tilesets/tile_wirebay.png" id="3_wirebay"]
+[ext_resource type="Texture2D" uid="uid://b1f04bwornbck" path="res://assets/tilesets/tile_sizedock.png" id="4_sizedock"]
+
+[sub_resource type="TileSetAtlasSource" id="AtlasSource_stage0"]
+texture = ExtResource("1_stage0")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+
+[sub_resource type="TileSetAtlasSource" id="AtlasSource_fliplab"]
+texture = ExtResource("2_fliplab")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+
+[sub_resource type="TileSetAtlasSource" id="AtlasSource_wirebay"]
+texture = ExtResource("3_wirebay")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+
+[sub_resource type="TileSetAtlasSource" id="AtlasSource_sizedock"]
+texture = ExtResource("4_sizedock")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+
+[resource]
+tile_size = Vector2i(128, 128)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("AtlasSource_stage0")
+sources/1 = SubResource("AtlasSource_fliplab")
+sources/2 = SubResource("AtlasSource_wirebay")
+sources/3 = SubResource("AtlasSource_sizedock")

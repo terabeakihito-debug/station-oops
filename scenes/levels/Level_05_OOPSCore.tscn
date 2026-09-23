@@ -1,0 +1,88 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scripts/levels/Level05.gd" id="1_level_script"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://scenes/echo/Echo.tscn" id="3_echo"]
+[ext_resource type="TileSet" path="res://assets/tilesets/stage_tiles.tres" id="4_tileset"]
+[ext_resource type="PackedScene" path="res://scenes/boss/NOA.tscn" id="5_noa"]
+[ext_resource type="PackedScene" path="res://scenes/boss/HintObject.tscn" id="6_hint"]
+[ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="7_hud"]
+[ext_resource type="Texture2D" path="res://assets/sprites/backgrounds/OOPS_main_16x9.png" id="8_bg"]
+[ext_resource type="PackedScene" path="res://scenes/levels/FallZone.tscn" id="9_fallzone"]
+[ext_resource type="Script" path="res://scripts/levels/NoaProximityEffect.gd" id="10_noa_proximity"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_core"]
+font_size = 24
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fallzone_core"]
+size = Vector2(1280, 100)
+
+[node name="Level_05_OOPSCore" type="Node2D"]
+script = ExtResource("1_level_script")
+
+[node name="StageBackground" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="BackgroundSharp" type="TextureRect" parent="StageBackground"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("8_bg")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="HelpLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="HelpLayer"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 700.0
+offset_bottom = 100.0
+text = "STATION OOPS - OOPS core
+ヒントオブジェクト（N・A・M・E、任意）をJキーで破壊できる
+QキーでECHOにスキャンさせてNOAを調べよう。Eキーで対決開始"
+label_settings = SubResource("LabelSettings_core")
+
+[node name="Ground" type="TileMapLayer" parent="."]
+tile_set = ExtResource("4_tileset")
+
+[node name="NOA" parent="." instance=ExtResource("5_noa")]
+position = Vector2(950, 545)
+
+[node name="Hint1" parent="." instance=ExtResource("6_hint")]
+position = Vector2(200, 612)
+hint_letter = "N"
+
+[node name="Hint2" parent="." instance=ExtResource("6_hint")]
+position = Vector2(450, 612)
+hint_letter = "A"
+
+[node name="Hint3" parent="." instance=ExtResource("6_hint")]
+position = Vector2(700, 612)
+hint_letter = "M"
+
+[node name="Hint4" parent="." instance=ExtResource("6_hint")]
+position = Vector2(950, 612)
+hint_letter = "E"
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(150, 612)
+
+[node name="Echo" parent="." instance=ExtResource("3_echo")]
+position = Vector2(110, 460)
+target_path = NodePath("../Player")
+
+[node name="HUD" parent="." instance=ExtResource("7_hud")]
+
+[node name="FallZone" parent="." instance=ExtResource("9_fallzone")]
+position = Vector2(640, 900)
+
+[node name="CollisionShape2D" parent="FallZone"]
+shape = SubResource("RectangleShape2D_fallzone_core")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+
+[node name="NoaProximityEffect" type="Node" parent="."]
+script = ExtResource("10_noa_proximity")
+canvas_modulate_path = NodePath("../CanvasModulate")
+noa_path = NodePath("../NOA")

@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="1_player"]
+[ext_resource type="PackedScene" path="res://scenes/echo/Echo.tscn" id="2_echo"]
+[ext_resource type="PackedScene" path="res://scenes/boss/NOA.tscn" id="3_noa"]
+[ext_resource type="PackedScene" path="res://scenes/ui/HUD.tscn" id="4_hud"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_boot"]
+font_size = 24
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(1280, 40)
+
+[node name="Level_00_Boot" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 700.0
+offset_bottom = 100.0
+text = "STATION OOPS - Boot Scene
+A/D+矢印=移動  Space=ジャンプ  E=インタラクト  Q=ECHOスキャン  J=攻撃
+右側にNOA配置済み。近づいてJで攻撃するとHPが減り点滅、50%でフェーズ2へ"
+label_settings = SubResource("LabelSettings_boot")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(640, 660)
+
+[node name="FloorShape" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(400, 600)
+
+[node name="Echo" parent="." instance=ExtResource("2_echo")]
+position = Vector2(360, 560)
+target_path = NodePath("../Player")
+
+[node name="NOA" parent="." instance=ExtResource("3_noa")]
+position = Vector2(950, 580)
+
+[node name="HUD" parent="." instance=ExtResource("4_hud")]
+

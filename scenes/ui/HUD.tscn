@@ -1,0 +1,60 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/HUD.gd" id="1_hud_script"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_hud_script")
+
+[node name="PlayerHealthPanel" type="Control" parent="."]
+offset_left = 20.0
+offset_top = 110.0
+offset_right = 260.0
+offset_bottom = 150.0
+
+[node name="PlayerLabel" type="Label" parent="PlayerHealthPanel"]
+offset_right = 100.0
+offset_bottom = 20.0
+text = "PLAYER"
+
+[node name="PlayerHealthBar" type="ProgressBar" parent="PlayerHealthPanel"]
+offset_top = 20.0
+offset_right = 240.0
+offset_bottom = 40.0
+max_value = 100.0
+value = 100.0
+show_percentage = false
+
+[node name="BossPhasePanel" type="Control" parent="."]
+visible = false
+offset_left = 900.0
+offset_top = 110.0
+offset_right = 1260.0
+offset_bottom = 170.0
+
+[node name="BossLabel" type="Label" parent="BossPhasePanel"]
+offset_right = 360.0
+offset_bottom = 20.0
+text = "NOA"
+horizontal_alignment = 2
+
+[node name="PhaseLabel" type="Label" parent="BossPhasePanel"]
+offset_top = 20.0
+offset_right = 360.0
+offset_bottom = 40.0
+horizontal_alignment = 2
+text = "フェーズ1"
+
+[node name="HintProgressLabel" type="Label" parent="BossPhasePanel"]
+offset_top = 40.0
+offset_right = 360.0
+offset_bottom = 60.0
+horizontal_alignment = 2
+text = "ヒント 0/5"
+
+[node name="ScanResultLabel" type="Label" parent="."]
+visible = false
+offset_left = 20.0
+offset_top = 160.0
+offset_right = 420.0
+offset_bottom = 190.0
+text = ""

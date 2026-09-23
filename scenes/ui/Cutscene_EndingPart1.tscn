@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/ui/SingleCutscene.tscn" id="1_base"]
+
+[node name="Cutscene_EndingPart1" instance=ExtResource("1_base")]
+video_path = "res://assets/videos/ending_01.ogv"
+next_scene_path = "res://scenes/ui/Cutscene_EndingPart2.tscn"
+play_track_on_start = "ending"

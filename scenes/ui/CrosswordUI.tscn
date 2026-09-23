@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/CrosswordUI.gd" id="1_crossword_script"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font_size = 28
+
+[node name="CrosswordUI" type="CanvasLayer"]
+script = ExtResource("1_crossword_script")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.05, 0.06, 0.1, 0.85)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+theme_override_constants/separation = 24
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+horizontal_alignment = 1
+text = "警告：セキュリティ認証プロトコル起動"
+label_settings = SubResource("LabelSettings_title")
+
+[node name="GridContainer" type="GridContainer" parent="CenterContainer/VBoxContainer"]
+theme_override_constants/h_separation = 2
+theme_override_constants/v_separation = 2
+
+[node name="KeyboardContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+alignment = 1
+theme_override_constants/separation = 6
+
+[node name="MessageLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+horizontal_alignment = 1
+text = ""

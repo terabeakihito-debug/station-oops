@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/levels/HazardZone.gd" id="1_hazard_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/props/icons/icon_hazard.png" id="2_icon"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hazard"]
+size = Vector2(160, 120)
+
+[node name="HazardZone" type="Area2D"]
+script = ExtResource("1_hazard_script")
+monitoring = true
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hazard")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_icon")
+scale = Vector2(0.7, 0.55)
+
+[node name="Label" type="Label" parent="."]
+offset_left = -60.0
+offset_top = -90.0
+offset_right = 60.0
+offset_bottom = -68.0
+horizontal_alignment = 1
+text = "小さくないと危険"

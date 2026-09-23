@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/locker_v2.png" id="1_locker_tex"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_locker"]
+size = Vector2(131, 150)
+
+[node name="LockerObstacle" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_locker")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_locker_tex")
+scale = Vector2(0.2256, 0.2256)
