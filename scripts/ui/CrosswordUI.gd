@@ -10,9 +10,9 @@ signal crossword_completed
 
 const KEYBOARD_ROWS := ["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"]
 
-@onready var _grid: GridContainer = $CenterContainer/VBoxContainer/GridContainer
-@onready var _keyboard_container: VBoxContainer = $CenterContainer/VBoxContainer/KeyboardContainer
-@onready var _message_label: Label = $CenterContainer/VBoxContainer/MessageLabel
+@onready var _grid: GridContainer = $CenterContainer/Panel/VBoxContainer/GridContainer
+@onready var _keyboard_container: VBoxContainer = $CenterContainer/Panel/VBoxContainer/KeyboardContainer
+@onready var _message_label: Label = $CenterContainer/Panel/VBoxContainer/MessageLabel
 
 var _board: Dictionary = {}
 var _target_name: String = ""
@@ -58,15 +58,21 @@ func _build_grid() -> void:
 				lbl.custom_minimum_size = CELL_SIZE
 				lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 				lbl.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+				lbl.add_theme_font_size_override("font_size", 20)
 				if col == spine_col:
 					# プレイヤー名の縦列：最初は空欄で、正解を選ぶたびに埋まっていく。
 					lbl.text = "_"
 					lbl.add_theme_color_override("font_color", Color(1.0, 0.9, 0.3))
+					lbl.add_theme_color_override("font_outline_color", Color(0.01, 0.04, 0.07, 1))
+					lbl.add_theme_constant_override("outline_size", 4)
 					_spine_labels.append(lbl)
 				else:
 					# 単語バンクからの交差語：見た目の複雑さを出すための装飾。
 					lbl.text = cells[pos]
-					lbl.modulate.a = 0.55
+					lbl.modulate = Color(1, 1, 1, 1)
+					lbl.add_theme_color_override("font_color", Color(0.55, 0.96, 0.98, 1))
+					lbl.add_theme_color_override("font_outline_color", Color(0.01, 0.04, 0.07, 1))
+					lbl.add_theme_constant_override("outline_size", 5)
 				_grid.add_child(lbl)
 			else:
 				var spacer := Control.new()
@@ -82,10 +88,29 @@ func _build_keyboard() -> void:
 			var letter: String = row_letters[i]
 			var btn := Button.new()
 			btn.text = letter
-			btn.custom_minimum_size = Vector2(44, 44)
+			btn.custom_minimum_size = Vector2(52, 52)
+			_style_key_button(btn)
 			btn.pressed.connect(_on_letter_pressed.bind(letter))
 			row.add_child(btn)
 		_keyboard_container.add_child(row)
+
+func _style_key_button(button: Button) -> void:
+	button.add_theme_font_size_override("font_size", 22)
+	button.add_theme_color_override("font_color", Color(0.92, 0.99, 1.0))
+	button.add_theme_color_override("font_hover_color", Color(1, 1, 1))
+	button.add_theme_color_override("font_pressed_color", Color(0.02, 0.08, 0.1))
+	button.add_theme_stylebox_override("normal", _button_style(Color(0.1, 0.18, 0.21, 1), Color(0.28, 0.52, 0.54, 0.95)))
+	button.add_theme_stylebox_override("hover", _button_style(Color(0.12, 0.34, 0.35, 1), Color(0.45, 0.95, 0.86, 1)))
+	button.add_theme_stylebox_override("pressed", _button_style(Color(0.4, 0.88, 0.78, 1), Color(0.75, 1, 0.94, 1)))
+	button.add_theme_stylebox_override("focus", _button_style(Color(0.12, 0.34, 0.35, 1), Color(1, 0.86, 0.36, 1)))
+
+func _button_style(fill: Color, border: Color) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = fill
+	style.border_color = border
+	style.set_border_width_all(2)
+	style.set_corner_radius_all(8)
+	return style
 
 func _on_letter_pressed(letter: String) -> void:
 	if _completed or _filled.length() >= _target_name.length():

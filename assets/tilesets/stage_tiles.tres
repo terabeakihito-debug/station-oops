@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" format=3 uid="uid://bpf3dtgsoqhyf"]
 
-[ext_resource type="Texture2D" uid="uid://badcxycwfsa7m" path="res://assets/tilesets/tile_stage0.png" id="1_stage0"]
+[ext_resource type="Texture2D" path="res://assets/tilesets/tile_stage0_v2.png" id="1_stage0"]
 [ext_resource type="Texture2D" uid="uid://crd4vugfjm5y7" path="res://assets/tilesets/tile_fliplab.png" id="2_fliplab"]
 [ext_resource type="Texture2D" uid="uid://drl7oetenjdk7" path="res://assets/tilesets/tile_wirebay.png" id="3_wirebay"]
 [ext_resource type="Texture2D" uid="uid://b1f04bwornbck" path="res://assets/tilesets/tile_sizedock.png" id="4_sizedock"]

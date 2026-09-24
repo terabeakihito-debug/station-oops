@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/levels/SizeDockLift.gd" id="1_lift_script"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/cargo_lift_v2.png" id="2_lift_texture"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lift"]
+size = Vector2(150, 34)
+
+[node name="SizeDockLift" type="AnimatableBody2D"]
+script = ExtResource("1_lift_script")
+sync_to_physics = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_lift")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_lift_texture")
+scale = Vector2(0.1, 0.1)

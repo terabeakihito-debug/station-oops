@@ -19,6 +19,17 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_pad")
 
+[node name="Housing" type="Polygon2D" parent="."]
+z_index = -2
+color = Color(0.055, 0.09, 0.12, 1)
+polygon = PackedVector2Array(-48, -18, 48, -18, 54, -12, 54, 12, 48, 18, -48, 18, -54, 12, -54, -12)
+
+[node name="HousingTrim" type="Line2D" parent="."]
+z_index = -1
+width = 2.0
+default_color = Color(0.36, 0.78, 0.82, 0.8)
+points = PackedVector2Array(-48, -18, 48, -18, 54, -12, 54, 12, 48, 18, -48, 18, -54, 12, -54, -12, -48, -18)
+
 [node name="Visual" type="Polygon2D" parent="."]
 color = Color(1, 1, 1, 1)
 texture_offset = Vector2(40, 12)

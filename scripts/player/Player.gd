@@ -4,7 +4,8 @@ extends CharacterBody2D
 ## InteractAreaを介した周辺オブジェクトへのインタラクト処理。
 
 @export var speed: float = 300.0
-@export var stop_deceleration: float = 1400.0
+@export var movement_acceleration: float = 2500.0
+@export var stop_deceleration: float = 1900.0
 @export var dash_speed: float = 760.0
 @export var dash_duration: float = 0.16
 @export var dash_cooldown: float = 0.55
@@ -18,6 +19,7 @@ extends CharacterBody2D
 @export var big_scale: float = 1.6
 
 const SPRITE_OFFSET_Y: float = -20.0 ## 通常重力時のスプライトYオフセット（反転時は符号反転して使う）
+const MOVEMENT_ANIMATION_THRESHOLD: float = 14.0
 
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var health: int = max_health
@@ -130,7 +132,7 @@ func _physics_process(delta: float) -> void:
 	if is_dashing:
 		direction = _dash_dir
 	elif direction != 0:
-		velocity.x = direction * speed
+		velocity.x = move_toward(velocity.x, direction * speed, movement_acceleration * delta)
 		if direction > 0.0:
 			facing_dir = 1
 		else:
@@ -147,8 +149,8 @@ func _physics_process(delta: float) -> void:
 		lock_animation("landing", landing_duration)
 	_was_on_floor = is_on_floor()
 
-	_update_animation(direction)
-	_apply_walk_bob(delta, direction)
+	_update_animation()
+	_apply_walk_bob(delta)
 
 func _on_animation_finished() -> void:
 	if _sprite.animation == "attack":
@@ -156,7 +158,7 @@ func _on_animation_finished() -> void:
 	if not _sprite.sprite_frames.get_animation_loop(_sprite.animation):
 		_external_lock_time = 0.0
 
-func _update_animation(direction: float) -> void:
+func _update_animation() -> void:
 	# climb素材は背面寄りの固定向きなので、梯子上で左右反転すると
 	# 手の位置が不自然に入れ替わる。横移動時だけ通常の反転を使う。
 	if is_climbing:
@@ -170,6 +172,7 @@ func _update_animation(direction: float) -> void:
 		# 専用の登りアニメーション（"climb"）が登録されればそちらを優先使用。
 		# 未登録の間はkneelを暫定流用する。
 		var climb_anim: StringName = &"climb" if _sprite.sprite_frames.has_animation(&"climb") else &"kneel"
+		_sprite.speed_scale = clampf(absf(velocity.y) / climb_speed, 0.7, 1.0)
 		if _sprite.animation != climb_anim:
 			_sprite.play(climb_anim)
 		if Input.get_axis("move_up", "move_down") == 0.0:
@@ -180,27 +183,30 @@ func _update_animation(direction: float) -> void:
 	var target_anim: StringName
 	if not is_on_floor():
 		target_anim = &"jump" if velocity.y * gravity_dir < 0 else &"fall"
-	elif direction != 0:
+		_sprite.speed_scale = 1.0
+	elif absf(velocity.x) > MOVEMENT_ANIMATION_THRESHOLD:
 		target_anim = &"walk"
+		_sprite.speed_scale = clampf(absf(velocity.x) / speed, 0.7, 1.1)
 	else:
 		target_anim = &"idle"
+		_sprite.speed_scale = 1.0
 	if _sprite.animation != target_anim:
 		_sprite.play(target_anim)
 
-func _apply_walk_bob(delta: float, direction: float) -> void:
+func _apply_walk_bob(delta: float) -> void:
 	## 絵は変えず、歩行中だけ疑似的な上下バウンス＋スクワッシュ&ストレッチを
 	## 上乗せする。時間経過ではなく「現在再生中のアニメーションの何コマ目か
 	## （frame / frame_count）」から位相を計算しているため、再生速度が変わっても
 	## 絶対にズレない。停止時はmove_towardで滑らかに元の姿勢へ戻す。
 	var base_offset := SPRITE_OFFSET_Y * gravity_dir
-	var is_walking: bool = is_on_floor() and not is_climbing and direction != 0.0 and not _is_attacking and _external_lock_time <= 0.0
+	var is_walking: bool = is_on_floor() and not is_climbing and absf(velocity.x) > MOVEMENT_ANIMATION_THRESHOLD and not _is_attacking and _external_lock_time <= 0.0
 	var is_airborne: bool = not is_on_floor() and not is_climbing and not _is_attacking and _external_lock_time <= 0.0
 	var pose_rotation: float = 0.0
 	var pose_scale: Vector2 = Vector2.ONE
 	if is_airborne:
 		var vertical_ratio: float = clampf((velocity.y * gravity_dir) / absf(jump_velocity), -1.0, 1.0)
 		# 上昇は前へ伸び、下降は着地に備えて少し沈む。
-		pose_scale = Vector2(1.0 - vertical_ratio * 0.02, 1.0 + vertical_ratio * 0.02)
+		pose_scale = Vector2.ONE
 		pose_rotation = facing_dir * vertical_ratio * 0.04
 		_sprite.rotation = lerp_angle(_sprite.rotation, pose_rotation, minf(delta * 14.0, 1.0))
 	else:

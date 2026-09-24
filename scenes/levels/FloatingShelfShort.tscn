@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3]
 
-[ext_resource type="Texture2D" path="res://assets/sprites/tiles/platform_3_short.png" id="1_tex"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/cargo_lift_v2.png" id="1_tex"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_shelf_short"]
 size = Vector2(72, 70)
@@ -12,4 +12,4 @@ shape = SubResource("RectangleShape2D_shelf_short")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_tex")
-scale = Vector2(0.1683, 0.1683)
+scale = Vector2(0.05, 0.05)

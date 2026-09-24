@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" path="res://assets/sprites/player/player_walk_sheet.png" id="sheet_walk"]
 [ext_resource type="Texture2D" path="res://assets/sprites/player/player_jump_sheet.png" id="sheet_jump"]
 [ext_resource type="Texture2D" path="res://assets/sprites/player/player_jump_v4_sheet.png" id="sheet_jump_v2"]
-[ext_resource type="Texture2D" path="res://assets/sprites/player/player_jump_v9_sheet.png" id="sheet_jump_v5"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/player_jump_v11_sheet.png" id="sheet_jump_v5"]
 [ext_resource type="Texture2D" path="res://assets/sprites/player/player_fall_sheet.png" id="sheet_fall"]
 [ext_resource type="Texture2D" path="res://assets/sprites/player/player_kneel_sheet.png" id="sheet_kneel"]
 [ext_resource type="Texture2D" path="res://assets/sprites/player/player_pickup_sheet.png" id="sheet_pickup"]
@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" path="res://assets/sprites/player/player_push_sheet.png" id="sheet_push"]
 [ext_resource type="Texture2D" path="res://assets/sprites/player/player_victory_sheet.png" id="sheet_victory"]
 [ext_resource type="Texture2D" path="res://assets/sprites/player/player_punch_sheet.png" id="sheet_punch"]
-[ext_resource type="Texture2D" path="res://assets/sprites/player/player_climb_v2_sheet.png" id="sheet_climb"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/player_climb_v4_sheet.png" id="sheet_climb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(28, 56)
@@ -1423,15 +1423,15 @@ animations = [{
 "frames": [
 {
 "duration": 1.0,
-"texture": SubResource("Atlas_jumpv5_10")
+"texture": SubResource("Atlas_jumpv5_00")
 }, 
 {
 "duration": 1.0,
-"texture": SubResource("Atlas_jumpv5_11")
+"texture": SubResource("Atlas_jumpv5_01")
 }, 
 {
 "duration": 1.0,
-"texture": SubResource("Atlas_jumpv5_12")
+"texture": SubResource("Atlas_jumpv5_02")
 }
 ],
 "loop": false,

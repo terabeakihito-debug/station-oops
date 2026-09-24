@@ -6,10 +6,10 @@ extends Control
 
 const KEYBOARD_ROWS := ["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"]
 
-@onready var _name_label: Label = $CenterContainer/VBoxContainer/NameLabel
-@onready var _keyboard_container: VBoxContainer = $CenterContainer/VBoxContainer/KeyboardContainer
-@onready var _backspace_button: Button = $CenterContainer/VBoxContainer/ButtonRow/BackspaceButton
-@onready var _confirm_button: Button = $CenterContainer/VBoxContainer/ButtonRow/ConfirmButton
+@onready var _name_label: Label = $CenterContainer/Panel/VBoxContainer/NameLabel
+@onready var _keyboard_container: VBoxContainer = $CenterContainer/Panel/VBoxContainer/KeyboardContainer
+@onready var _backspace_button: Button = $CenterContainer/Panel/VBoxContainer/ButtonRow/BackspaceButton
+@onready var _confirm_button: Button = $CenterContainer/Panel/VBoxContainer/ButtonRow/ConfirmButton
 
 var _current_name: String = ""
 
@@ -53,10 +53,41 @@ func _build_keyboard() -> void:
 			var letter: String = row_letters[i]
 			var btn := Button.new()
 			btn.text = letter
-			btn.custom_minimum_size = Vector2(52, 52)
+			btn.custom_minimum_size = Vector2(56, 56)
+			_style_key_button(btn)
 			btn.pressed.connect(_on_letter_pressed.bind(letter))
 			row.add_child(btn)
 		_keyboard_container.add_child(row)
+	_style_action_button(_backspace_button, false)
+	_style_action_button(_confirm_button, true)
+
+func _style_key_button(button: Button) -> void:
+	button.add_theme_font_size_override("font_size", 22)
+	button.add_theme_color_override("font_color", Color(0.9, 0.98, 1.0))
+	button.add_theme_color_override("font_hover_color", Color(1, 1, 1))
+	button.add_theme_color_override("font_pressed_color", Color(0.02, 0.08, 0.1))
+	button.add_theme_stylebox_override("normal", _button_style(Color(0.1, 0.18, 0.21, 1), Color(0.28, 0.52, 0.54, 0.95)))
+	button.add_theme_stylebox_override("hover", _button_style(Color(0.12, 0.34, 0.35, 1), Color(0.45, 0.95, 0.86, 1)))
+	button.add_theme_stylebox_override("pressed", _button_style(Color(0.4, 0.88, 0.78, 1), Color(0.75, 1, 0.94, 1)))
+	button.add_theme_stylebox_override("focus", _button_style(Color(0.12, 0.34, 0.35, 1), Color(1, 0.86, 0.36, 1)))
+
+func _style_action_button(button: Button, is_confirm: bool) -> void:
+	button.add_theme_font_size_override("font_size", 22)
+	button.add_theme_color_override("font_color", Color(0.92, 0.99, 1.0))
+	button.add_theme_color_override("font_disabled_color", Color(0.42, 0.52, 0.54))
+	var fill := Color(0.12, 0.34, 0.35, 1) if is_confirm else Color(0.1, 0.18, 0.21, 1)
+	var border := Color(0.45, 0.95, 0.86, 1) if is_confirm else Color(0.28, 0.52, 0.54, 0.95)
+	button.add_theme_stylebox_override("normal", _button_style(fill, border))
+	button.add_theme_stylebox_override("hover", _button_style(Color(0.18, 0.48, 0.45, 1), Color(1, 0.86, 0.36, 1)))
+	button.add_theme_stylebox_override("disabled", _button_style(Color(0.08, 0.12, 0.14, 1), Color(0.16, 0.24, 0.26, 1)))
+
+func _button_style(fill: Color, border: Color) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = fill
+	style.border_color = border
+	style.set_border_width_all(2)
+	style.set_corner_radius_all(9)
+	return style
 
 func _on_letter_pressed(letter: String) -> void:
 	if _current_name.length() < GameManager.PLAYER_NAME_MAX_LENGTH:

@@ -9,7 +9,7 @@ extends StaticBody2D
 
 signal opened
 
-@export_enum("scan", "interact", "big") var unlock_mode: String = "scan"
+@export_enum("scan", "interact", "small", "big") var unlock_mode: String = "scan"
 @export var barrier_scan_tex: Texture2D
 @export var barrier_interact_tex: Texture2D
 @export var barrier_big_tex: Texture2D
@@ -32,6 +32,10 @@ func _ready() -> void:
 		"interact":
 			_label.text = "インタラクトしないと開かない（Eキー）"
 			_visual.texture = barrier_interact_tex
+		"small":
+			_label.text = "縮小しないと開かない"
+			_visual.texture = barrier_big_tex
+			_size_detector.body_entered.connect(_on_size_body_entered)
 		"big":
 			_label.text = "巨大化しないと開かない"
 			_visual.texture = barrier_big_tex
@@ -42,7 +46,7 @@ func _ready() -> void:
 func _on_size_body_entered(body: Node) -> void:
 	if _opened:
 		return
-	if "size_mode" in body and body.size_mode == "big":
+	if "size_mode" in body and ((unlock_mode == "small" and body.size_mode == "small") or (unlock_mode == "big" and body.size_mode == "big")):
 		_open()
 
 func _start_idle_pulse() -> void:

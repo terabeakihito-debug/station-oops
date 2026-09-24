@@ -29,10 +29,10 @@ const QUESTIONS := [
 
 var noa_ref: Node = null
 
-@onready var _question_label: Label = $CenterContainer/VBoxContainer/QuestionLabel
-@onready var _choices_container: VBoxContainer = $CenterContainer/VBoxContainer/ChoicesContainer
-@onready var _timer_bar: ProgressBar = $CenterContainer/VBoxContainer/TimerBar
-@onready var _result_label: Label = $CenterContainer/VBoxContainer/ResultLabel
+@onready var _question_label: Label = $CenterContainer/Panel/VBoxContainer/QuestionLabel
+@onready var _choices_container: VBoxContainer = $CenterContainer/Panel/VBoxContainer/ChoicesContainer
+@onready var _timer_bar: ProgressBar = $CenterContainer/Panel/VBoxContainer/TimerBar
+@onready var _result_label: Label = $CenterContainer/Panel/VBoxContainer/ResultLabel
 
 var _current_index: int = 0
 var _time_left: float = 0.0
@@ -68,10 +68,30 @@ func _show_question(index: int) -> void:
 	for i in choices.size():
 		var btn := Button.new()
 		btn.text = choices[i]
-		btn.custom_minimum_size = Vector2(320, 48)
+		btn.custom_minimum_size = Vector2(500, 56)
+		btn.add_theme_font_size_override("font_size", 22)
+		btn.add_theme_color_override("font_color", Color(0.9, 0.98, 1.0))
+		btn.add_theme_color_override("font_hover_color", Color(1.0, 1.0, 1.0))
+		btn.add_theme_color_override("font_pressed_color", Color(0.02, 0.08, 0.1))
+		btn.add_theme_color_override("font_disabled_color", Color(0.75, 0.85, 0.86))
+		btn.add_theme_stylebox_override("normal", _choice_style(Color(0.08, 0.18, 0.21, 0.98), Color(0.25, 0.48, 0.5, 0.9)))
+		btn.add_theme_stylebox_override("hover", _choice_style(Color(0.12, 0.34, 0.35, 1.0), Color(0.45, 0.95, 0.86, 1.0)))
+		btn.add_theme_stylebox_override("pressed", _choice_style(Color(0.4, 0.88, 0.78, 1.0), Color(0.7, 1.0, 0.94, 1.0)))
+		btn.add_theme_stylebox_override("focus", _choice_style(Color(0.12, 0.34, 0.35, 1.0), Color(1.0, 0.86, 0.36, 1.0)))
+		btn.add_theme_stylebox_override("disabled", _choice_style(Color(0.12, 0.17, 0.18, 0.98), Color(0.25, 0.35, 0.36, 0.9)))
 		btn.pressed.connect(_on_answer_selected.bind(i))
 		_choices_container.add_child(btn)
 		_choice_buttons.append(btn)
+
+func _choice_style(fill: Color, border: Color) -> StyleBoxFlat:
+	var style := StyleBoxFlat.new()
+	style.bg_color = fill
+	style.border_color = border
+	style.set_border_width_all(2)
+	style.set_corner_radius_all(10)
+	style.content_margin_left = 18.0
+	style.content_margin_right = 18.0
+	return style
 
 func _on_answer_selected(choice_index: int) -> void:
 	if _answered:

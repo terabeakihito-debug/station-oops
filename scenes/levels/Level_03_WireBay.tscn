@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3]
+[gd_scene load_steps=15 format=3]
 
 [ext_resource type="Script" path="res://scripts/levels/Level03.gd" id="1_level_script"]
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2_player"]
@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" path="res://scenes/levels/LevelExit.tscn" id="7_exit"]
 [ext_resource type="Texture2D" path="res://assets/sprites/backgrounds/wire_bay.png" id="8_bg"]
 [ext_resource type="PackedScene" path="res://scenes/levels/Ladder.tscn" id="9_ladder"]
-[ext_resource type="Texture2D" path="res://assets/sprites/tiles/cable_footholds_transparent.png" id="10_cable_tex"]
 [ext_resource type="PackedScene" path="res://scenes/levels/FallZone.tscn" id="11_fallzone"]
 [ext_resource type="PackedScene" path="res://scenes/levels/PowerSwitch.tscn" id="12_switch"]
 [ext_resource type="PackedScene" path="res://scenes/levels/WiringPanel.tscn" id="13_panel"]
@@ -79,6 +78,7 @@ position = Vector2(1986, 448)
 shape = SubResource("RectangleShape2D_switch_ladder")
 
 [node name="Sprite2D" parent="SwitchLadder"]
+position = Vector2(0, 14.25)
 scale = Vector2(0.1172, 0.375)
 
 [node name="PowerSwitch" parent="." instance=ExtResource("12_switch")]
@@ -92,8 +92,8 @@ position = Vector2(600, 384)
 shape = SubResource("RectangleShape2D_cable_ladder")
 
 [node name="Sprite2D" parent="CableLadder"]
-texture = ExtResource("10_cable_tex")
-scale = Vector2(0.3324, 0.5435)
+modulate = Color(1, 1, 1, 1)
+scale = Vector2(0.2539, 0.5435)
 
 [node name="Player" parent="." instance=ExtResource("2_player")]
 position = Vector2(150, 500)

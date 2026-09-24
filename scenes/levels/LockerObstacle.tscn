@@ -1,15 +1,24 @@
 [gd_scene load_steps=3 format=3]
 
-[ext_resource type="Texture2D" path="res://assets/sprites/tiles/locker_v2.png" id="1_locker_tex"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/locker_v3.png" id="1_locker_tex"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_locker"]
 size = Vector2(131, 150)
 
 [node name="LockerObstacle" type="StaticBody2D"]
 
+[node name="ContactShadow" type="Polygon2D" parent="."]
+z_index = -1
+position = Vector2(0, 78)
+scale = Vector2(1, 0.35)
+polygon = PackedVector2Array(-60, -8, -42, -14, -18, -17, 18, -17, 42, -14, 60, -8, 46, 2, 20, 7, -20, 7, -46, 2)
+color = Color(0.02, 0.09, 0.11, 0.32)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_locker")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_locker_tex")
-scale = Vector2(0.2256, 0.2256)
+position = Vector2(0, 10.6)
+modulate = Color(0.84, 0.96, 0.97, 1)
+scale = Vector2(0.108, 0.108)

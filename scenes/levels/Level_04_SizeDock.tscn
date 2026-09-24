@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3]
+[gd_scene load_steps=22 format=3]
 
 [ext_resource type="Script" path="res://scripts/levels/Level04.gd" id="1_level_script"]
 [ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="2_player"]
@@ -6,20 +6,21 @@
 [ext_resource type="TileSet" path="res://assets/tilesets/stage_tiles.tres" id="4_tileset"]
 [ext_resource type="PackedScene" path="res://scenes/levels/SizeTogglePad.tscn" id="5_size_pad"]
 [ext_resource type="PackedScene" path="res://scenes/levels/LevelExit.tscn" id="6_exit"]
-[ext_resource type="Texture2D" path="res://assets/sprites/backgrounds/size_dock.png" id="7_bg"]
+[ext_resource type="Texture2D" path="res://assets/sprites/backgrounds/size_dock_v2.png" id="7_bg"]
 [ext_resource type="PackedScene" path="res://scenes/levels/FallZone.tscn" id="8_fallzone"]
-[ext_resource type="Texture2D" path="res://assets/sprites/tiles/staircase_assembled.png" id="9_staircase_tex"]
-[ext_resource type="Texture2D" path="res://assets/sprites/tiles/crate_pile_assembled.png" id="10_crate_tex"]
-[ext_resource type="Texture2D" path="res://assets/sprites/tiles/crate_single.png" id="11_crate_single_tex"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/staircase_assembled_v3.png" id="9_staircase_tex"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/cargo_crate_v3.png" id="10_crate_tex"]
 [ext_resource type="PackedScene" path="res://scenes/levels/HazardZone.tscn" id="12_hazard"]
 [ext_resource type="PackedScene" path="res://scenes/levels/Gate.tscn" id="13_gate"]
-[ext_resource type="Texture2D" path="res://assets/sprites/tiles/low_ceiling_panel.png" id="14_ceiling_tex"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/low_ceiling_panel_v2.png" id="14_ceiling_tex"]
+[ext_resource type="PackedScene" path="res://scenes/levels/SizeDockLift.tscn" id="15_lift"]
+[ext_resource type="PackedScene" path="res://scenes/levels/ElectricalArc.tscn" id="16_arc"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_sizedock"]
 font_size = 24
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lowceiling"]
-size = Vector2(300, 195)
+size = Vector2(300, 80)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fallzone_sizedock"]
 size = Vector2(4096, 100)
@@ -34,10 +35,10 @@ size = Vector2(128, 256)
 size = Vector2(128, 384)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cratepile"]
-size = Vector2(230, 180)
+size = Vector2(190, 90)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cratesingle"]
-size = Vector2(250, 180)
+size = Vector2(138, 88)
 
 [node name="Level_04_SizeDock" type="Node2D"]
 script = ExtResource("1_level_script")
@@ -52,7 +53,8 @@ motion_mirroring = Vector2(1280, 0)
 [node name="BackgroundSprite" type="Sprite2D" parent="StageBackground/BackgroundLayer"]
 texture = ExtResource("7_bg")
 position = Vector2(640, 360)
-scale = Vector2(0.6667, 0.6667)
+scale = Vector2(0.7688, 0.7688)
+modulate = Color(1.04, 0.99, 1.02, 1)
 
 [node name="HelpLayer" type="CanvasLayer" parent="."]
 
@@ -64,19 +66,23 @@ offset_bottom = 100.0
 text = "STATION OOPS - SIZE DOCK
 A/D+矢印=移動  Space=ジャンプ
 青パッド=縮小　緑パッド=通常サイズ　オレンジパッド=巨大化
-火花地帯は小さくないとダメージ、オレンジのゲートは巨大化しないと開かない"
+低い通路・縮小ゲートは小さくなって通過
+火花地帯は小さくないとダメージ、オレンジのゲートは巨大化しないと開かない
+貨物リフトは上下のタイミングを見てジャンプ
+放電帯が消えた瞬間に次のリフトへ"
 label_settings = SubResource("LabelSettings_sizedock")
 
 [node name="Ground" type="TileMapLayer" parent="."]
 tile_set = ExtResource("4_tileset")
 
 [node name="LowCeiling" type="StaticBody2D" parent="."]
-position = Vector2(650, 497)
+position = Vector2(650, 486)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LowCeiling"]
 shape = SubResource("RectangleShape2D_lowceiling")
 
 [node name="Visual" type="Polygon2D" parent="LowCeiling"]
+position = Vector2(0, -45)
 color = Color(1, 1, 1, 1)
 texture = ExtResource("14_ceiling_tex")
 texture_offset = Vector2(150, 97)
@@ -90,68 +96,121 @@ position = Vector2(900, 616)
 target_mode = "normal"
 
 [node name="StaircaseVisual" type="Sprite2D" parent="."]
-position = Vector2(1728, 448)
-scale = Vector2(0.6326, 0.6326)
+position = Vector2(1728, 387)
+z_index = -1
+scale = Vector2(0.37, 0.37)
 texture = ExtResource("9_staircase_tex")
 
 [node name="StaircaseStep1" type="StaticBody2D" parent="."]
-position = Vector2(1536, 576)
+position = Vector2(1536, 512)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaircaseStep1"]
 shape = SubResource("RectangleShape2D_step1")
 
 [node name="StaircaseStep2" type="StaticBody2D" parent="."]
-position = Vector2(1664, 512)
+position = Vector2(1664, 448)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaircaseStep2"]
 shape = SubResource("RectangleShape2D_step2")
 
 [node name="StaircaseStep3" type="StaticBody2D" parent="."]
-position = Vector2(1792, 448)
+position = Vector2(1792, 384)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaircaseStep3"]
 shape = SubResource("RectangleShape2D_step3")
 
 [node name="CratePile" type="StaticBody2D" parent="."]
-position = Vector2(2176, 550)
+position = Vector2(2176, 487)
+
+[node name="ContactShadow" type="Polygon2D" parent="CratePile"]
+z_index = -1
+position = Vector2(0, 88)
+scale = Vector2(1.1, 0.32)
+color = Color(0.02, 0.09, 0.11, 0.35)
+polygon = PackedVector2Array(-90, -8, -62, -15, -20, -18, 24, -17, 68, -12, 92, -4, 70, 4, 20, 8, -34, 7, -78, 3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CratePile"]
 shape = SubResource("RectangleShape2D_cratepile")
 
-[node name="Sprite2D" type="Sprite2D" parent="CratePile"]
+[node name="CrateA" type="Sprite2D" parent="CratePile"]
 texture = ExtResource("10_crate_tex")
-scale = Vector2(0.225, 0.225)
+position = Vector2(-58, 34)
+scale = Vector2(0.055, 0.055)
+
+[node name="CrateB" type="Sprite2D" parent="CratePile"]
+texture = ExtResource("10_crate_tex")
+position = Vector2(0, 34)
+scale = Vector2(0.055, 0.055)
+
+[node name="CrateC" type="Sprite2D" parent="CratePile"]
+texture = ExtResource("10_crate_tex")
+position = Vector2(58, 34)
+scale = Vector2(0.055, 0.055)
+
+[node name="CrateD" type="Sprite2D" parent="CratePile"]
+texture = ExtResource("10_crate_tex")
+position = Vector2(-29, -28)
+scale = Vector2(0.055, 0.055)
+
+[node name="CrateE" type="Sprite2D" parent="CratePile"]
+texture = ExtResource("10_crate_tex")
+position = Vector2(29, -28)
+scale = Vector2(0.055, 0.055)
 
 [node name="ShrinkPad2" parent="." instance=ExtResource("5_size_pad")]
 position = Vector2(2320, 616)
 
 [node name="CrateObstacle" type="StaticBody2D" parent="."]
-position = Vector2(2500, 505)
+position = Vector2(2500, 486)
+
+[node name="ContactShadow" type="Polygon2D" parent="CrateObstacle"]
+z_index = -1
+position = Vector2(0, 88)
+scale = Vector2(0.95, 0.32)
+color = Color(0.02, 0.09, 0.11, 0.35)
+polygon = PackedVector2Array(-70, -8, -48, -14, -14, -17, 22, -16, 58, -10, 74, -3, 52, 5, 14, 8, -42, 5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CrateObstacle"]
 shape = SubResource("RectangleShape2D_cratesingle")
 
 [node name="Sprite2D" type="Sprite2D" parent="CrateObstacle"]
-texture = ExtResource("11_crate_single_tex")
-scale = Vector2(0.39, 0.39)
+texture = ExtResource("10_crate_tex")
+scale = Vector2(0.09, 0.09)
 
 [node name="GrowPad2" parent="." instance=ExtResource("5_size_pad")]
-position = Vector2(2700, 616)
+position = Vector2(3200, 616)
 target_mode = "normal"
 
+[node name="SmallGate" parent="." instance=ExtResource("13_gate")]
+position = Vector2(2700, 490)
+unlock_mode = "small"
+
 [node name="HazardZone" parent="." instance=ExtResource("12_hazard")]
-position = Vector2(2850, 560)
+position = Vector2(3300, 560)
+
+[node name="CargoLift" parent="." instance=ExtResource("15_lift")]
+position = Vector2(2880, 560)
+travel_distance = 160.0
+travel_time = 1.6
+
+[node name="ElectricalArc" parent="." instance=ExtResource("16_arc")]
+position = Vector2(3008, 420)
+
+[node name="CargoLift2" parent="." instance=ExtResource("15_lift")]
+position = Vector2(3136, 400)
+travel_distance = 144.0
+travel_time = 1.5
 
 [node name="EnlargePad" parent="." instance=ExtResource("5_size_pad")]
-position = Vector2(3100, 616)
+position = Vector2(3450, 616)
 target_mode = "big"
 
 [node name="SizeGate" parent="." instance=ExtResource("13_gate")]
-position = Vector2(3250, 490)
+position = Vector2(3600, 490)
 unlock_mode = "big"
 
 [node name="NormalizePad" parent="." instance=ExtResource("5_size_pad")]
-position = Vector2(3400, 616)
+position = Vector2(3750, 616)
 target_mode = "normal"
 
 [node name="Player" parent="." instance=ExtResource("2_player")]
@@ -162,7 +221,7 @@ position = Vector2(110, 460)
 target_path = NodePath("../Player")
 
 [node name="LevelExit" parent="." instance=ExtResource("6_exit")]
-position = Vector2(3700, 576)
+position = Vector2(4000, 576)
 next_scene_path = "res://scenes/ui/Cutscene_OOPSCore.tscn"
 
 [node name="FallZone" parent="." instance=ExtResource("8_fallzone")]

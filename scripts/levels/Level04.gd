@@ -17,4 +17,8 @@ func _ready() -> void:
 
 func _build_ground() -> void:
 	for x in range(32):
+		# 階段前と危険区間に短い穴を作り、サイズ操作だけでなく
+		# ジャンプの判断も必要にする。
+		if x == 11 or x == 22 or x == 24:
+			continue
 		_ground.set_cell(Vector2i(x, 5), SOURCE_SIZEDOCK, Vector2i(0, 0))

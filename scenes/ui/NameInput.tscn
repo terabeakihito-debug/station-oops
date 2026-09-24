@@ -1,9 +1,40 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/NameInput.gd" id="1_name_input_script"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_name"]
 font_size = 48
+font_color = Color(0.45, 0.98, 0.9, 1)
+outline_size = 6
+outline_color = Color(0.02, 0.08, 0.12, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font_size = 28
+font_color = Color(0.92, 0.98, 1, 1)
+outline_size = 5
+outline_color = Color(0.02, 0.08, 0.12, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_hint"]
+font_size = 16
+font_color = Color(0.62, 0.78, 0.8, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.025, 0.07, 0.1, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.86, 0.83, 0.78)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+content_margin_left = 44.0
+content_margin_top = 36.0
+content_margin_right = 44.0
+content_margin_bottom = 32.0
+shadow_color = Color(0, 0, 0, 0.45)
+shadow_size = 14
 
 [node name="NameInput" type="Control"]
 layout_mode = 3
@@ -25,37 +56,49 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+[node name="Panel" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(760, 560)
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="TitleLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="CenterContainer/Panel/VBoxContainer"]
 layout_mode = 2
 horizontal_alignment = 1
 text = "名前を入力してください（3〜8文字）"
+label_settings = SubResource("LabelSettings_title")
 
-[node name="NameLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="NameLabel" type="Label" parent="CenterContainer/Panel/VBoxContainer"]
 layout_mode = 2
+custom_minimum_size = Vector2(0, 74)
 horizontal_alignment = 1
 text = "___"
 label_settings = SubResource("LabelSettings_name")
 
-[node name="KeyboardContainer" type="VBoxContainer" parent="CenterContainer/VBoxContainer"]
+[node name="KeyboardContainer" type="VBoxContainer" parent="CenterContainer/Panel/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="ButtonRow" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+[node name="HintLabel" type="Label" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+text = "画面のキーまたはキーボードで入力できます"
+label_settings = SubResource("LabelSettings_hint")
+
+[node name="ButtonRow" type="HBoxContainer" parent="CenterContainer/Panel/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 theme_override_constants/separation = 20
 
-[node name="BackspaceButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonRow"]
+[node name="BackspaceButton" type="Button" parent="CenterContainer/Panel/VBoxContainer/ButtonRow"]
 layout_mode = 2
-custom_minimum_size = Vector2(120, 48)
+custom_minimum_size = Vector2(180, 56)
 text = "削除"
 
-[node name="ConfirmButton" type="Button" parent="CenterContainer/VBoxContainer/ButtonRow"]
+[node name="ConfirmButton" type="Button" parent="CenterContainer/Panel/VBoxContainer/ButtonRow"]
 layout_mode = 2
-custom_minimum_size = Vector2(120, 48)
+custom_minimum_size = Vector2(180, 56)
 disabled = true
 text = "決定"
