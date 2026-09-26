@@ -1,6 +1,7 @@
-[gd_scene load_steps=321 format=3]
+[gd_scene load_steps=323 format=3]
 
 [ext_resource type="Script" path="res://scripts/player/Player.gd" id="1_player_script"]
+[ext_resource type="Shader" path="res://scripts/player/player_pixel.gdshader" id="2_pixel_shader"]
 [ext_resource type="Texture2D" path="res://assets/sprites/player/player_idle_sheet.png" id="sheet_idle"]
 [ext_resource type="Texture2D" path="res://assets/sprites/player/player_walk_sheet.png" id="sheet_walk"]
 [ext_resource type="Texture2D" path="res://assets/sprites/player/player_jump_sheet.png" id="sheet_jump"]
@@ -23,6 +24,11 @@ size = Vector2(48, 64)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_attack"]
 size = Vector2(40, 48)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_player_pixel"]
+shader = ExtResource("2_pixel_shader")
+shader_parameter/pixel_step = 2.0
+shader_parameter/palette_steps = 14.0
 
 [sub_resource type="AtlasTexture" id="Atlas_idle_00"]
 atlas = ExtResource("sheet_idle")
@@ -2082,6 +2088,8 @@ shape = SubResource("RectangleShape2D_body")
 position = Vector2(0, -20)
 sprite_frames = SubResource("SpriteFrames_player")
 animation = &"idle"
+texture_filter = 1
+material = SubResource("ShaderMaterial_player_pixel")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position_smoothing_enabled = true
