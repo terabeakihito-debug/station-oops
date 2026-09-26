@@ -15,6 +15,9 @@
 [ext_resource type="Texture2D" path="res://assets/sprites/player/player_victory_sheet.png" id="sheet_victory"]
 [ext_resource type="Texture2D" path="res://assets/sprites/player/player_punch_sheet.png" id="sheet_punch"]
 [ext_resource type="Texture2D" path="res://assets/sprites/player/player_climb_v4_sheet.png" id="sheet_climb"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/player_pixel_motion_sheet_v1.png" id="sheet_pixel_motion"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/player_pixel_climb_sheet_v1.png" id="sheet_pixel_climb"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/player_pixel_climb_exit_sheet_v1.png" id="sheet_pixel_climb_exit"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(28, 56)
@@ -27,8 +30,168 @@ size = Vector2(40, 48)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_player_pixel"]
 shader = ExtResource("2_pixel_shader")
-shader_parameter/pixel_step = 2.0
-shader_parameter/palette_steps = 14.0
+shader_parameter/pixel_step = 4.0
+shader_parameter/palette_steps = 10.0
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_motion_00"]
+atlas = ExtResource("sheet_pixel_motion")
+region = Rect2(0, 0, 313.5, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_motion_01"]
+atlas = ExtResource("sheet_pixel_motion")
+region = Rect2(313.5, 0, 313.5, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_motion_02"]
+atlas = ExtResource("sheet_pixel_motion")
+region = Rect2(627, 0, 313.5, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_motion_03"]
+atlas = ExtResource("sheet_pixel_motion")
+region = Rect2(940.5, 0, 313.5, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_motion_04"]
+atlas = ExtResource("sheet_pixel_motion")
+region = Rect2(0, 313.5, 313.5, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_motion_05"]
+atlas = ExtResource("sheet_pixel_motion")
+region = Rect2(313.5, 313.5, 313.5, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_motion_06"]
+atlas = ExtResource("sheet_pixel_motion")
+region = Rect2(627, 313.5, 313.5, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_motion_07"]
+atlas = ExtResource("sheet_pixel_motion")
+region = Rect2(940.5, 313.5, 313.5, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_motion_08"]
+atlas = ExtResource("sheet_pixel_motion")
+region = Rect2(0, 627, 313.5, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_motion_09"]
+atlas = ExtResource("sheet_pixel_motion")
+region = Rect2(313.5, 627, 313.5, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_motion_10"]
+atlas = ExtResource("sheet_pixel_motion")
+region = Rect2(627, 627, 313.5, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_motion_11"]
+atlas = ExtResource("sheet_pixel_motion")
+region = Rect2(940.5, 627, 313.5, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_motion_12"]
+atlas = ExtResource("sheet_pixel_motion")
+region = Rect2(0, 940.5, 313.5, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_motion_13"]
+atlas = ExtResource("sheet_pixel_motion")
+region = Rect2(313.5, 940.5, 313.5, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_motion_14"]
+atlas = ExtResource("sheet_pixel_motion")
+region = Rect2(627, 940.5, 313.5, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_motion_15"]
+atlas = ExtResource("sheet_pixel_motion")
+region = Rect2(940.5, 940.5, 313.5, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_climb_00"]
+atlas = ExtResource("sheet_pixel_climb")
+region = Rect2(0, 0, 250.8, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_climb_01"]
+atlas = ExtResource("sheet_pixel_climb")
+region = Rect2(250.8, 0, 250.8, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_climb_02"]
+atlas = ExtResource("sheet_pixel_climb")
+region = Rect2(501.6, 0, 250.8, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_climb_03"]
+atlas = ExtResource("sheet_pixel_climb")
+region = Rect2(752.4, 0, 250.8, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_climb_04"]
+atlas = ExtResource("sheet_pixel_climb")
+region = Rect2(1003.2, 0, 250.8, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_climb_05"]
+atlas = ExtResource("sheet_pixel_climb")
+region = Rect2(0, 313.5, 250.8, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_climb_06"]
+atlas = ExtResource("sheet_pixel_climb")
+region = Rect2(250.8, 313.5, 250.8, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_climb_07"]
+atlas = ExtResource("sheet_pixel_climb")
+region = Rect2(501.6, 313.5, 250.8, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_climb_08"]
+atlas = ExtResource("sheet_pixel_climb")
+region = Rect2(752.4, 313.5, 250.8, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_climb_09"]
+atlas = ExtResource("sheet_pixel_climb")
+region = Rect2(1003.2, 313.5, 250.8, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_climb_10"]
+atlas = ExtResource("sheet_pixel_climb")
+region = Rect2(0, 627, 250.8, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_climb_11"]
+atlas = ExtResource("sheet_pixel_climb")
+region = Rect2(250.8, 627, 250.8, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_climb_12"]
+atlas = ExtResource("sheet_pixel_climb")
+region = Rect2(501.6, 627, 250.8, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_climb_13"]
+atlas = ExtResource("sheet_pixel_climb")
+region = Rect2(752.4, 627, 250.8, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_climb_14"]
+atlas = ExtResource("sheet_pixel_climb")
+region = Rect2(1003.2, 627, 250.8, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_climb_15"]
+atlas = ExtResource("sheet_pixel_climb")
+region = Rect2(0, 940.5, 250.8, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_climb_16"]
+atlas = ExtResource("sheet_pixel_climb")
+region = Rect2(250.8, 940.5, 250.8, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_climb_17"]
+atlas = ExtResource("sheet_pixel_climb")
+region = Rect2(501.6, 940.5, 250.8, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_climb_18"]
+atlas = ExtResource("sheet_pixel_climb")
+region = Rect2(752.4, 940.5, 250.8, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_climb_19"]
+atlas = ExtResource("sheet_pixel_climb")
+region = Rect2(1003.2, 940.5, 250.8, 313.5)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_climb_exit_00"]
+atlas = ExtResource("sheet_pixel_climb_exit")
+region = Rect2(0, 0, 615, 639)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_climb_exit_01"]
+atlas = ExtResource("sheet_pixel_climb_exit")
+region = Rect2(615, 0, 615, 639)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_climb_exit_02"]
+atlas = ExtResource("sheet_pixel_climb_exit")
+region = Rect2(0, 639, 615, 639)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_climb_exit_03"]
+atlas = ExtResource("sheet_pixel_climb_exit")
+region = Rect2(615, 639, 615, 639)
 
 [sub_resource type="AtlasTexture" id="Atlas_idle_00"]
 atlas = ExtResource("sheet_idle")
@@ -2079,23 +2242,198 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("Atlas_climb_20")
+"texture": SubResource("Atlas_idle_00")
 }, {
 "duration": 1.0,
-"texture": SubResource("Atlas_climb_21")
+"texture": SubResource("Atlas_idle_01")
 }, {
 "duration": 1.0,
-"texture": SubResource("Atlas_climb_22")
+"texture": SubResource("Atlas_idle_02")
 }, {
 "duration": 1.0,
-"texture": SubResource("Atlas_climb_23")
+"texture": SubResource("Atlas_idle_03")
 }, {
 "duration": 1.0,
-"texture": SubResource("Atlas_climb_24")
+"texture": SubResource("Atlas_idle_04")
 }],
 "loop": false,
 "name": &"climb_exit",
 "speed": 16.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_motion_00")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_motion_01")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_motion_02")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_motion_03")
+}],
+"loop": true,
+"name": &"idle_pixel",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_motion_04")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_motion_05")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_motion_06")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_motion_07")
+}],
+"loop": true,
+"name": &"walk_pixel",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_motion_08")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_motion_09")
+}],
+"loop": false,
+"name": &"jump_anticipation_pixel",
+"speed": 14.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_motion_09")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_motion_10")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_motion_11")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_motion_12")
+}],
+"loop": false,
+"name": &"jump_pixel",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_motion_10")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_motion_11")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_motion_12")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_motion_13")
+}],
+"loop": false,
+"name": &"fall_pixel",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_motion_13")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_motion_14")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_motion_15")
+}],
+"loop": false,
+"name": &"landing_pixel",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_climb_00")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_climb_01")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_climb_02")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_climb_03")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_climb_04")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_climb_05")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_climb_06")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_climb_07")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_climb_08")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_climb_09")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_climb_10")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_climb_11")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_climb_12")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_climb_13")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_climb_14")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_climb_15")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_climb_16")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_climb_17")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_climb_18")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_climb_19")
+}],
+"loop": true,
+"name": &"climb_pixel",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_climb_exit_00")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_climb_exit_01")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_climb_exit_02")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_climb_exit_03")
+}],
+"loop": false,
+"name": &"climb_exit_pixel",
+"speed": 12.0
 }]
 
 [node name="Player" type="CharacterBody2D"]
@@ -2108,7 +2446,7 @@ shape = SubResource("RectangleShape2D_body")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -20)
 sprite_frames = SubResource("SpriteFrames_player")
-animation = &"idle"
+animation = &"idle_pixel"
 texture_filter = 1
 material = SubResource("ShaderMaterial_player_pixel")
 

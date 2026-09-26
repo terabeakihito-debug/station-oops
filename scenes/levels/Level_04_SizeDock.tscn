@@ -96,9 +96,9 @@ position = Vector2(900, 616)
 target_mode = "normal"
 
 [node name="StaircaseVisual" type="Sprite2D" parent="."]
-position = Vector2(1642, 420)
+position = Vector2(1664, 420)
 z_index = 1
-scale = Vector2(0.54, 0.54)
+scale = Vector2(0.32, 0.32)
 texture = ExtResource("9_staircase_tex")
 
 [node name="StaircaseStep1" type="StaticBody2D" parent="."]

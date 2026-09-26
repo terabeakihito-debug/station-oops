@@ -20,8 +20,7 @@ extends CharacterBody2D
 
 const SPRITE_OFFSET_Y: float = -20.0 ## 通常重力時のスプライトYオフセット（反転時は符号反転して使う）
 const MOVEMENT_ANIMATION_THRESHOLD: float = 14.0
-const CLIMB_EXIT_DURATION: float = 0.32
-const CLIMB_EXIT_SPEED: float = 160.0
+const CLIMB_EXIT_DURATION: float = 0.34
 
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var health: int = max_health
@@ -108,10 +107,7 @@ func _physics_process(delta: float) -> void:
 		if _dash_time == 0.0:
 			velocity.x = _dash_dir * speed
 
-	if not is_dashing and _climb_exit_time > 0.0:
-		# 梯子の上端から体を持ち上げて、足場へ移る。
-		velocity.y = -CLIMB_EXIT_SPEED * gravity_dir
-	elif not is_dashing and not is_on_floor() and not is_climbing:
+	if not is_dashing and _climb_exit_time <= 0.0 and not is_on_floor() and not is_climbing:
 		velocity.y += gravity * gravity_dir * delta
 
 	if is_climbing:
@@ -155,7 +151,7 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor() and not _was_on_floor and not is_climbing and _climb_exit_time <= 0.0 and not _is_attacking and _external_lock_time <= 0.0:
 		# 着地の瞬間、専用の"landing"アニメーション（衝撃を吸収するしゃがみ、
 		# フレーム18〜24）を表示する。
-		lock_animation("landing", landing_duration)
+		lock_animation("landing_pixel", landing_duration)
 	_was_on_floor = is_on_floor()
 
 	_update_animation()
@@ -178,13 +174,11 @@ func _update_animation() -> void:
 	if _is_attacking or _external_lock_time > 0.0:
 		return
 	if _climb_exit_time > 0.0:
-		if _sprite.animation != &"climb_exit":
-			_sprite.play("climb_exit")
+		if _sprite.animation != &"climb_exit_pixel":
+			_sprite.play("climb_exit_pixel")
 		return
 	if is_climbing:
-		# 専用の登りアニメーション（"climb"）が登録されればそちらを優先使用。
-		# 未登録の間はkneelを暫定流用する。
-		var climb_anim: StringName = &"climb" if _sprite.sprite_frames.has_animation(&"climb") else &"kneel"
+		var climb_anim: StringName = &"climb_pixel" if _sprite.sprite_frames.has_animation(&"climb_pixel") else &"climb"
 		_sprite.speed_scale = clampf(absf(velocity.y) / climb_speed, 0.7, 1.0)
 		if _sprite.animation != climb_anim:
 			_sprite.play(climb_anim)
@@ -195,13 +189,13 @@ func _update_animation() -> void:
 		return
 	var target_anim: StringName
 	if not is_on_floor():
-		target_anim = &"jump" if velocity.y * gravity_dir < 0 else &"fall"
+		target_anim = &"jump_pixel" if velocity.y * gravity_dir < 0 else &"fall_pixel"
 		_sprite.speed_scale = 1.0
 	elif absf(velocity.x) > MOVEMENT_ANIMATION_THRESHOLD:
-		target_anim = &"walk"
+		target_anim = &"walk_pixel"
 		_sprite.speed_scale = clampf(absf(velocity.x) / speed, 0.7, 1.1)
 	else:
-		target_anim = &"idle"
+		target_anim = &"idle_pixel"
 		_sprite.speed_scale = 1.0
 	if _sprite.animation != target_anim:
 		_sprite.play(target_anim)
@@ -212,6 +206,14 @@ func _apply_walk_bob(delta: float) -> void:
 	## （frame / frame_count）」から位相を計算しているため、再生速度が変わっても
 	## 絶対にズレない。停止時はmove_towardで滑らかに元の姿勢へ戻す。
 	var base_offset := SPRITE_OFFSET_Y * gravity_dir
+	if _climb_exit_time > 0.0:
+		# 本体の当たり判定は床に置いたまま、上半身だけを持ち上げて見せる。
+		var progress := 1.0 - _climb_exit_time / CLIMB_EXIT_DURATION
+		var lift := sin(clampf(progress, 0.0, 1.0) * PI) * 10.0
+		_sprite.position.y = base_offset - lift * gravity_dir
+		_sprite.scale = Vector2.ONE
+		_sprite.rotation = lerp_angle(_sprite.rotation, 0.0, minf(delta * 14.0, 1.0))
+		return
 	var is_walking: bool = is_on_floor() and not is_climbing and absf(velocity.x) > MOVEMENT_ANIMATION_THRESHOLD and not _is_attacking and _external_lock_time <= 0.0
 	var is_airborne: bool = not is_on_floor() and not is_climbing and not _is_attacking and _external_lock_time <= 0.0
 	var pose_rotation: float = 0.0
@@ -286,7 +288,7 @@ func _start_jump_anticipation() -> void:
 	## 実際に空中へ飛び出す「タメ」を作る。地面から離れる直前まで
 	## velocity.yは変更しない（＝見た目上もまだ地面に立っている）。
 	_jump_anticipating = true
-	lock_animation("jump_anticipation", jump_anticipation_time)
+	lock_animation("jump_anticipation_pixel", jump_anticipation_time)
 	await get_tree().create_timer(jump_anticipation_time).timeout
 	_jump_anticipating = false
 	if is_on_floor():
@@ -347,9 +349,10 @@ func set_climbing(value: bool, play_exit: bool = true) -> void:
 		_climb_exit_time = 0.0
 		velocity.y = 0.0
 	elif was_climbing and play_exit:
-		# 梯子の最後の数フレームを使って、上端へよじ登る動作にする。
+		# 手を離す→体を乗せる→立つ、の専用終了モーションへ移行する。
 		_climb_exit_time = CLIMB_EXIT_DURATION
-		_sprite.play("climb_exit")
+		velocity.y = 0.0
+		_sprite.play("climb_exit_pixel")
 		_sprite.speed_scale = 1.0
 
 func on_fall_death() -> void:

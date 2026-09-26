@@ -69,6 +69,7 @@ func _show_question(index: int) -> void:
 		var btn := Button.new()
 		btn.text = choices[i]
 		btn.custom_minimum_size = Vector2(500, 56)
+		btn.focus_mode = Control.FOCUS_ALL
 		btn.add_theme_font_size_override("font_size", 22)
 		btn.add_theme_color_override("font_color", Color(0.9, 0.98, 1.0))
 		btn.add_theme_color_override("font_hover_color", Color(1.0, 1.0, 1.0))
@@ -82,6 +83,10 @@ func _show_question(index: int) -> void:
 		btn.pressed.connect(_on_answer_selected.bind(i))
 		_choices_container.add_child(btn)
 		_choice_buttons.append(btn)
+
+	# マウスを使わなくても、最初の選択肢から上下キーで移動できるようにする。
+	if not _choice_buttons.is_empty():
+		_choice_buttons[0].call_deferred("grab_focus")
 
 func _choice_style(fill: Color, border: Color) -> StyleBoxFlat:
 	var style := StyleBoxFlat.new()

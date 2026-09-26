@@ -25,8 +25,12 @@ func _physics_process(_delta: float) -> void:
 		if body_shape != null and body_shape.shape is RectangleShape2D:
 			half_height = (body_shape.shape as RectangleShape2D).size.y * 0.5
 		var gravity_dir := int(body.get("gravity_dir"))
-		var reached_exit := body.global_position.y <= top_y + half_height if gravity_dir > 0 else body.global_position.y >= bottom_y - half_height
+		var reached_exit := body.global_position.y <= top_y - half_height if gravity_dir > 0 else body.global_position.y >= bottom_y + half_height
 		if reached_exit:
+			# 登り切り開始位置を足場の高さへ固定し、宙に残さない。
+			body.global_position.y = top_y - half_height if gravity_dir > 0 else bottom_y + half_height
+			if body is CharacterBody2D:
+				body.velocity.y = 0.0
 			body.set_climbing(false)
 
 func _on_body_entered(body: Node) -> void:
