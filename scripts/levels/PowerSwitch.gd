@@ -32,9 +32,11 @@ var _wiring_panel: Node = null
 @onready var _light: PointLight2D = $Light
 @onready var _flash: Sprite2D = $Flash
 @onready var _door_timer: Timer = $DoorTimer
+@onready var _status_bar: Polygon2D = $StatusBar
 
 func _ready() -> void:
 	_icon.modulate = COLOR_OFF
+	_status_bar.color = COLOR_OFF
 	_denied_label.visible = false
 	_prompt_label.visible = false
 	_light.color = LIGHT_OFF
@@ -63,6 +65,7 @@ func on_interact() -> void:
 	_prompt_label.visible = false
 	var tween := create_tween()
 	tween.tween_property(_icon, "modulate", COLOR_ON, 0.3)
+	tween.tween_property(_status_bar, "color", COLOR_ON, 0.3)
 	tween.tween_callback(_on_switched_on)
 
 func _on_switched_on() -> void:
@@ -104,5 +107,6 @@ func reset() -> void:
 	_is_on = false
 	_door_timer.stop()
 	_icon.modulate = COLOR_OFF
+	_status_bar.color = COLOR_OFF
 	_light.color = LIGHT_OFF
 	_light.energy = 0.2

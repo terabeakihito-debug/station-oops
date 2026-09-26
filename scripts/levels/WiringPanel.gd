@@ -24,9 +24,11 @@ var is_powered: bool = false
 @onready var _prompt_label: Label = $PromptLabel
 @onready var _light: PointLight2D = $Light
 @onready var _power_timer: Timer = $PowerTimer
+@onready var _status_bar: Polygon2D = $StatusBar
 
 func _ready() -> void:
 	_icon.modulate = COLOR_IDLE
+	_status_bar.color = COLOR_IDLE
 	_prompt_label.visible = false
 	_light.color = LIGHT_IDLE
 	_light.energy = 0.2
@@ -52,6 +54,7 @@ func _start_power() -> void:
 	is_powered = true
 	_prompt_label.visible = false
 	_icon.modulate = COLOR_POWERED
+	_status_bar.color = COLOR_POWERED
 	_light.color = LIGHT_POWERED
 	_light.energy = 1.4
 	power_state_changed.emit(true)
@@ -69,6 +72,7 @@ func consume_power() -> bool:
 	is_powered = false
 	_power_timer.stop()
 	_icon.modulate = COLOR_IDLE
+	_status_bar.color = COLOR_IDLE
 	_light.color = LIGHT_IDLE
 	_light.energy = 0.2
 	power_state_changed.emit(false)
@@ -80,6 +84,7 @@ func _fail() -> void:
 	power_state_changed.emit(false)
 	EventBus.puzzle_timer_stopped.emit()
 	_icon.modulate = COLOR_MISS
+	_status_bar.color = COLOR_MISS
 	_light.color = LIGHT_MISS
 	_light.energy = 1.0
 	var tween := create_tween()
@@ -88,5 +93,6 @@ func _fail() -> void:
 	tween.tween_property(_light, "energy", 1.0, 0.25)
 	await get_tree().create_timer(miss_display_duration).timeout
 	_icon.modulate = COLOR_IDLE
+	_status_bar.color = COLOR_IDLE
 	_light.color = LIGHT_IDLE
 	_light.energy = 0.2

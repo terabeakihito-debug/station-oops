@@ -13,9 +13,12 @@ var _triggered: bool = false
 
 @onready var _door_left: Polygon2D = $DoorLeft
 @onready var _door_right: Polygon2D = $DoorRight
+@onready var _status_bar: Polygon2D = $StatusBar
+@onready var _status_dot: Polygon2D = $StatusDot
 
 func _ready() -> void:
 	body_entered.connect(_on_body_entered)
+	_update_state_visual()
 
 func _on_body_entered(body: Node) -> void:
 	if _triggered or locked:
@@ -29,6 +32,12 @@ func _on_body_entered(body: Node) -> void:
 
 func unlock() -> void:
 	locked = false
+	_update_state_visual()
+
+func _update_state_visual() -> void:
+	var color := Color(1.0, 0.38, 0.16, 1.0) if locked else Color(0.3, 1.0, 0.72, 1.0)
+	_status_bar.color = color
+	_status_dot.color = color
 
 func _open_door() -> void:
 	var tween := create_tween()
