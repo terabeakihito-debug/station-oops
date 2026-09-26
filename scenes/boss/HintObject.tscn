@@ -9,6 +9,17 @@ size = Vector2(56, 56)
 [node name="HintObject" type="StaticBody2D"]
 script = ExtResource("1_hint_script")
 
+[node name="Housing" type="Polygon2D" parent="."]
+z_index = -1
+color = Color(0.055, 0.06, 0.09, 0.94)
+polygon = PackedVector2Array(-42, -34, 42, -34, 48, -28, 48, 28, 42, 34, -42, 34, -48, 28, -48, -28)
+
+[node name="HousingTrim" type="Line2D" parent="."]
+z_index = 1
+points = PackedVector2Array(-42, -34, 42, -34, 48, -28, 48, 28, 42, 34, -42, 34, -48, 28, -48, -28, -42, -34)
+width = 2.0
+default_color = Color(0.95, 0.7, 0.25, 0.9)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_hint")
 

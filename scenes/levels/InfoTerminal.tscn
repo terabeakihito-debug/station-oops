@@ -12,6 +12,22 @@ script = ExtResource("1_terminal_script")
 monitoring = false
 monitorable = true
 
+[node name="Housing" type="Polygon2D" parent="."]
+z_index = -2
+color = Color(0.035, 0.075, 0.09, 0.96)
+polygon = PackedVector2Array(-42, -36, 42, -36, 48, -30, 48, 30, 42, 36, -42, 36, -48, 30, -48, -30)
+
+[node name="HousingTrim" type="Line2D" parent="."]
+z_index = 1
+points = PackedVector2Array(-42, -36, 42, -36, 48, -30, 48, 30, 42, 36, -42, 36, -48, 30, -48, -30, -42, -36)
+width = 2.0
+default_color = Color(0.28, 0.85, 0.86, 0.9)
+
+[node name="StatusBar" type="Polygon2D" parent="."]
+z_index = 1
+color = Color(0.35, 0.85, 1, 0.9)
+polygon = PackedVector2Array(-26, 26, 26, 26, 26, 30, -26, 30)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_terminal")
 

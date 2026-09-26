@@ -11,6 +11,22 @@ script = ExtResource("1_hazard_script")
 monitoring = true
 monitorable = false
 
+[node name="Housing" type="Polygon2D" parent="."]
+z_index = -2
+color = Color(0.08, 0.06, 0.05, 0.9)
+polygon = PackedVector2Array(-94, -70, 94, -70, 102, -62, 102, 62, 94, 70, -94, 70, -102, 62, -102, -62)
+
+[node name="HousingTrim" type="Line2D" parent="."]
+z_index = -1
+points = PackedVector2Array(-94, -70, 94, -70, 102, -62, 102, 62, 94, 70, -94, 70, -102, 62, -102, -62, -94, -70)
+width = 2.0
+default_color = Color(1, 0.55, 0.15, 0.95)
+
+[node name="WarningBar" type="Polygon2D" parent="."]
+z_index = -1
+color = Color(1, 0.63, 0.15, 0.95)
+polygon = PackedVector2Array(-72, 55, 72, 55, 72, 60, -72, 60)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_hazard")
 
@@ -24,4 +40,4 @@ offset_top = -90.0
 offset_right = 60.0
 offset_bottom = -68.0
 horizontal_alignment = 1
-text = "小さくないと危険"
+text = "縮小必須"
