@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" path="res://scenes/levels/LevelExit.tscn" id="6_exit"]
 [ext_resource type="Texture2D" path="res://assets/sprites/backgrounds/size_dock_v2.png" id="7_bg"]
 [ext_resource type="PackedScene" path="res://scenes/levels/FallZone.tscn" id="8_fallzone"]
-[ext_resource type="Texture2D" path="res://assets/sprites/tiles/staircase_assembled_v3.png" id="9_staircase_tex"]
+[ext_resource type="Texture2D" path="res://assets/sprites/tiles/staircase_side_v1.png" id="9_staircase_tex"]
 [ext_resource type="Texture2D" path="res://assets/sprites/tiles/cargo_crate_v3.png" id="10_crate_tex"]
 [ext_resource type="PackedScene" path="res://scenes/levels/HazardZone.tscn" id="12_hazard"]
 [ext_resource type="PackedScene" path="res://scenes/levels/Gate.tscn" id="13_gate"]
@@ -96,25 +96,25 @@ position = Vector2(900, 616)
 target_mode = "normal"
 
 [node name="StaircaseVisual" type="Sprite2D" parent="."]
-position = Vector2(1728, 387)
-z_index = -1
-scale = Vector2(0.37, 0.37)
+position = Vector2(1642, 420)
+z_index = 1
+scale = Vector2(0.54, 0.54)
 texture = ExtResource("9_staircase_tex")
 
 [node name="StaircaseStep1" type="StaticBody2D" parent="."]
-position = Vector2(1536, 512)
+position = Vector2(1536, 552)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaircaseStep1"]
 shape = SubResource("RectangleShape2D_step1")
 
 [node name="StaircaseStep2" type="StaticBody2D" parent="."]
-position = Vector2(1664, 448)
+position = Vector2(1664, 488)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaircaseStep2"]
 shape = SubResource("RectangleShape2D_step2")
 
 [node name="StaircaseStep3" type="StaticBody2D" parent="."]
-position = Vector2(1792, 384)
+position = Vector2(1792, 424)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaircaseStep3"]
 shape = SubResource("RectangleShape2D_step3")

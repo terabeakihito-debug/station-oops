@@ -20,6 +20,8 @@ extends CharacterBody2D
 
 const SPRITE_OFFSET_Y: float = -20.0 ## 通常重力時のスプライトYオフセット（反転時は符号反転して使う）
 const MOVEMENT_ANIMATION_THRESHOLD: float = 14.0
+const CLIMB_EXIT_DURATION: float = 0.32
+const CLIMB_EXIT_SPEED: float = 160.0
 
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var health: int = max_health
@@ -45,6 +47,7 @@ var _start_position: Vector2
 var _is_respawning: bool = false
 var _was_on_floor: bool = true
 var _jump_anticipating: bool = false
+var _climb_exit_time: float = 0.0
 
 @onready var _interact_area: Area2D = $InteractArea
 @onready var _attack_area: Area2D = $AttackArea
@@ -93,6 +96,8 @@ func _physics_process(delta: float) -> void:
 		_size_toggle_cooldown -= delta
 	if _dash_cooldown > 0.0:
 		_dash_cooldown -= delta
+	if _climb_exit_time > 0.0:
+		_climb_exit_time = maxf(0.0, _climb_exit_time - delta)
 
 	if Input.is_action_just_pressed("dash"):
 		_try_dash()
@@ -103,7 +108,10 @@ func _physics_process(delta: float) -> void:
 		if _dash_time == 0.0:
 			velocity.x = _dash_dir * speed
 
-	if not is_dashing and not is_on_floor() and not is_climbing:
+	if not is_dashing and _climb_exit_time > 0.0:
+		# 梯子の上端から体を持ち上げて、足場へ移る。
+		velocity.y = -CLIMB_EXIT_SPEED * gravity_dir
+	elif not is_dashing and not is_on_floor() and not is_climbing:
 		velocity.y += gravity * gravity_dir * delta
 
 	if is_climbing:
@@ -112,7 +120,8 @@ func _physics_process(delta: float) -> void:
 	if not is_dashing and Input.is_action_just_pressed("jump"):
 		if is_climbing:
 			# はしごから軽く飛び降りる（通常ジャンプよりやや弱め）
-			set_climbing(false)
+			set_climbing(false, false)
+			_climb_exit_time = 0.0
 			velocity.y = jump_velocity * gravity_dir * 0.6
 		elif is_on_floor() and not _jump_anticipating:
 			_start_jump_anticipation()
@@ -143,7 +152,7 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-	if is_on_floor() and not _was_on_floor and not is_climbing and not _is_attacking and _external_lock_time <= 0.0:
+	if is_on_floor() and not _was_on_floor and not is_climbing and _climb_exit_time <= 0.0 and not _is_attacking and _external_lock_time <= 0.0:
 		# 着地の瞬間、専用の"landing"アニメーション（衝撃を吸収するしゃがみ、
 		# フレーム18〜24）を表示する。
 		lock_animation("landing", landing_duration)
@@ -167,6 +176,10 @@ func _update_animation() -> void:
 		_sprite.flip_h = facing_dir < 0
 	_sprite.flip_v = gravity_dir < 0
 	if _is_attacking or _external_lock_time > 0.0:
+		return
+	if _climb_exit_time > 0.0:
+		if _sprite.animation != &"climb_exit":
+			_sprite.play("climb_exit")
 		return
 	if is_climbing:
 		# 専用の登りアニメーション（"climb"）が登録されればそちらを優先使用。
@@ -325,12 +338,19 @@ func set_size_mode(target: String) -> void:
 			scale = Vector2(1.0, 1.0)
 	_size_toggle_cooldown = 0.5
 
-func set_climbing(value: bool) -> void:
+func set_climbing(value: bool, play_exit: bool = true) -> void:
 	## Ladder（各ステージ共通の縦移動ギミック）から呼ばれる。
 	## 登り中は重力を無効化し、move_up/move_downで昇降する。
+	var was_climbing := is_climbing
 	is_climbing = value
 	if value:
+		_climb_exit_time = 0.0
 		velocity.y = 0.0
+	elif was_climbing and play_exit:
+		# 梯子の最後の数フレームを使って、上端へよじ登る動作にする。
+		_climb_exit_time = CLIMB_EXIT_DURATION
+		_sprite.play("climb_exit")
+		_sprite.speed_scale = 1.0
 
 func on_fall_death() -> void:
 	## FallZone（各ステージの床の隙間の下に配置）に触れた瞬間に呼ばれる。
