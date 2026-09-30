@@ -23,7 +23,7 @@ font_size = 24
 size = Vector2(300, 80)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fallzone_sizedock"]
-size = Vector2(4096, 100)
+size = Vector2(5632, 100)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_step1"]
 size = Vector2(128, 128)
@@ -177,10 +177,6 @@ shape = SubResource("RectangleShape2D_cratesingle")
 texture = ExtResource("10_crate_tex")
 scale = Vector2(0.09, 0.09)
 
-[node name="GrowPad2" parent="." instance=ExtResource("5_size_pad")]
-position = Vector2(3200, 616)
-target_mode = "normal"
-
 [node name="SmallGate" parent="." instance=ExtResource("13_gate")]
 position = Vector2(2700, 490)
 unlock_mode = "small"
@@ -213,6 +209,34 @@ unlock_mode = "big"
 position = Vector2(3750, 616)
 target_mode = "normal"
 
+[node name="ShrinkPad3" parent="." instance=ExtResource("5_size_pad")]
+position = Vector2(4200, 616)
+
+[node name="CargoLift3" parent="." instance=ExtResource("15_lift")]
+position = Vector2(4288, 560)
+travel_distance = 180.0
+travel_time = 1.8
+
+[node name="ElectricalArc2" parent="." instance=ExtResource("16_arc")]
+position = Vector2(4448, 420)
+
+[node name="CargoLift4" parent="." instance=ExtResource("15_lift")]
+position = Vector2(4608, 400)
+travel_distance = 176.0
+travel_time = 1.8
+
+[node name="EnlargePad2" parent="CargoLift4" instance=ExtResource("5_size_pad")]
+position = Vector2(0, -40)
+target_mode = "big"
+
+[node name="SizeGate2" parent="." instance=ExtResource("13_gate")]
+position = Vector2(5056, 490)
+unlock_mode = "big"
+
+[node name="NormalizePad2" parent="." instance=ExtResource("5_size_pad")]
+position = Vector2(5280, 616)
+target_mode = "normal"
+
 [node name="Player" parent="." instance=ExtResource("2_player")]
 position = Vector2(150, 500)
 
@@ -221,11 +245,11 @@ position = Vector2(110, 460)
 target_path = NodePath("../Player")
 
 [node name="LevelExit" parent="." instance=ExtResource("6_exit")]
-position = Vector2(4000, 576)
+position = Vector2(5504, 576)
 next_scene_path = "res://scenes/ui/Cutscene_OOPSCore.tscn"
 
 [node name="FallZone" parent="." instance=ExtResource("8_fallzone")]
-position = Vector2(2048, 900)
+position = Vector2(2816, 900)
 
 [node name="CollisionShape2D" parent="FallZone"]
 shape = SubResource("RectangleShape2D_fallzone_sizedock")

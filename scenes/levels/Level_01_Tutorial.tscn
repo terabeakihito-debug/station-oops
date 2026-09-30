@@ -18,7 +18,7 @@ font_size = 24
 size = Vector2(90, 450)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fallzone_tutorial"]
-size = Vector2(4608, 100)
+size = Vector2(6144, 100)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_finish_ladder"]
 size = Vector2(90, 256)
@@ -60,7 +60,7 @@ tile_set = ExtResource("4_tileset")
 
 [node name="FloorDepthLine" type="Line2D" parent="."]
 z_index = 1
-points = PackedVector2Array(0, 704, 4608, 704)
+points = PackedVector2Array(0, 704, 6144, 704)
 width = 3.0
 default_color = Color(0.08, 0.48, 0.52, 0.24)
 antialiased = true
@@ -101,6 +101,12 @@ scale = Vector2(0.1172, 0.4395)
 [node name="Locker3" parent="." instance=ExtResource("7_locker")]
 position = Vector2(4160, 565)
 
+[node name="Locker4" parent="." instance=ExtResource("7_locker")]
+position = Vector2(4864, 565)
+
+[node name="Locker5" parent="." instance=ExtResource("7_locker")]
+position = Vector2(5248, 565)
+
 [node name="FinishLadder" parent="." instance=ExtResource("8_ladder")]
 position = Vector2(4352, 512)
 
@@ -108,6 +114,16 @@ position = Vector2(4352, 512)
 shape = SubResource("RectangleShape2D_finish_ladder")
 
 [node name="Sprite2D" parent="FinishLadder"]
+position = Vector2(0, 9.5)
+scale = Vector2(0.1172, 0.25)
+
+[node name="FinalLadder" parent="." instance=ExtResource("8_ladder")]
+position = Vector2(5632, 512)
+
+[node name="CollisionShape2D" parent="FinalLadder"]
+shape = SubResource("RectangleShape2D_finish_ladder")
+
+[node name="Sprite2D" parent="FinalLadder"]
 position = Vector2(0, 9.5)
 scale = Vector2(0.1172, 0.25)
 
@@ -119,11 +135,11 @@ position = Vector2(110, 460)
 target_path = NodePath("../Player")
 
 [node name="LevelExit" parent="." instance=ExtResource("5_exit")]
-position = Vector2(4544, 320)
+position = Vector2(6048, 320)
 next_scene_path = "res://scenes/ui/Cutscene_FlipLab.tscn"
 
 [node name="FallZone" parent="." instance=ExtResource("9_fallzone")]
-position = Vector2(2304, 900)
+position = Vector2(3072, 900)
 
 [node name="CollisionShape2D" parent="FallZone"]
 shape = SubResource("RectangleShape2D_fallzone_tutorial")

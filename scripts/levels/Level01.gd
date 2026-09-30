@@ -36,13 +36,13 @@ func _ready() -> void:
 func _build_ground() -> void:
 	# 床は5行目（y=640〜768）。GAP_COLUMNSに含まれる列だけ空けて敷き詰める。
 	# 隙間は④連続ジャンプ区画と⑥最終複合区画の入口。
-	var gap_columns := [17, 19, 29]
-	for x in range(36):
+	var gap_columns := [17, 19, 29, 40, 42]
+	for x in range(48):
 		if x in gap_columns:
 			continue
 		_ground.set_cell(Vector2i(x, 5), SOURCE_STAGE0, Vector2i(0, 0))
 	# ⑥最終複合区画の出口：はしごを登った先の高台（x=34〜35、y=3行目 → y=384〜512）。
-	for x in range(34, 36):
+	for x in range(44, 48):
 		_ground.set_cell(Vector2i(x, 3), SOURCE_STAGE0, Vector2i(0, 0))
 
 func _build_platforms() -> void:

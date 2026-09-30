@@ -17,7 +17,7 @@
 font_size = 24
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fallzone_fliplab"]
-size = Vector2(4864, 100)
+size = Vector2(5632, 100)
 
 [node name="Level_02_FlipLab" type="Node2D"]
 script = ExtResource("1_level_script")
@@ -93,23 +93,29 @@ position = Vector2(3392, 460)
 fall_distance = 150.0
 fall_interval = 3.0
 
-[node name="EntryFlipPad" parent="." instance=ExtResource("5_flip_pad")]
-position = Vector2(3392, 616)
-
 [node name="PlatformA" parent="." instance=ExtResource("8_shelf_long")]
-position = Vector2(3392, 250)
+position = Vector2(3500, 430)
 
 [node name="PlatformAFlipPad" parent="." instance=ExtResource("5_flip_pad")]
-position = Vector2(3392, 210)
+position = Vector2(3500, 390)
 
 [node name="PlatformB" parent="." instance=ExtResource("8_shelf_long")]
-position = Vector2(3392, 900)
+position = Vector2(3620, 220)
 
 [node name="PlatformBFlipPad" parent="." instance=ExtResource("5_flip_pad")]
-position = Vector2(3392, 860)
+position = Vector2(3620, 270)
 
 [node name="PlatformC" parent="." instance=ExtResource("8_shelf_long")]
-position = Vector2(3392, -50)
+position = Vector2(3740, 430)
+
+[node name="PlatformCFlipPad" parent="." instance=ExtResource("5_flip_pad")]
+position = Vector2(3740, 390)
+
+[node name="PlatformD" parent="." instance=ExtResource("8_shelf_long")]
+position = Vector2(3860, 220)
+
+[node name="PlatformDFlipPad" parent="." instance=ExtResource("5_flip_pad")]
+position = Vector2(3860, 270)
 
 [node name="Player" parent="." instance=ExtResource("2_player")]
 position = Vector2(150, 284)
@@ -119,17 +125,17 @@ position = Vector2(110, 240)
 target_path = NodePath("../Player")
 
 [node name="LevelExit" parent="." instance=ExtResource("6_exit")]
-position = Vector2(3392, -140)
+position = Vector2(4608, 576)
 next_scene_path = "res://scenes/ui/Cutscene_WireBay.tscn"
 
 [node name="FallZoneBelow" parent="." instance=ExtResource("11_fallzone")]
-position = Vector2(2304, 1200)
+position = Vector2(2816, 1200)
 
 [node name="CollisionShape2D" parent="FallZoneBelow"]
 shape = SubResource("RectangleShape2D_fallzone_fliplab")
 
 [node name="FallZoneAbove" parent="." instance=ExtResource("11_fallzone")]
-position = Vector2(2304, -600)
+position = Vector2(2816, -600)
 
 [node name="CollisionShape2D" parent="FallZoneAbove"]
 shape = SubResource("RectangleShape2D_fallzone_fliplab")

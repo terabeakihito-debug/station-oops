@@ -35,8 +35,12 @@ func _build_ground() -> void:
 	# 左側の床（x=0〜5、ピクセルx=0〜768）
 	for x in range(0, 6):
 		_ground.set_cell(Vector2i(x, 5), SOURCE_WIREBAY, Vector2i(0, 0))
-	# 対岸〜終端の床（x=12〜29、ピクセルx=1536〜3840）。間（x=6〜11）が広い隙間。
-	for x in range(12, 30):
+	# 対岸〜中継区画の床（x=12〜23）。間（x=6〜11）が広い隙間。
+	for x in range(12, 24):
+		_ground.set_cell(Vector2i(x, 5), SOURCE_WIREBAY, Vector2i(0, 0))
+	# 2つ目のワイヤー区画の先にある終端の床（x=28〜42）。
+	# 中継区画との間（x=24〜27）も、2つ目の足場を引き寄せて渡る。
+	for x in range(28, 43):
 		_ground.set_cell(Vector2i(x, 5), SOURCE_WIREBAY, Vector2i(0, 0))
 	# 上段の小さな足場（x=4〜5、y=1行目 → ピクセルy=128〜256）。
 	# 左側の床の奥側。ケーブル足場（縦移動ギミック）で登れる寄り道スペース

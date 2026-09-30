@@ -19,8 +19,14 @@ extends CharacterBody2D
 @export var big_scale: float = 1.6
 
 const SPRITE_OFFSET_Y: float = -20.0 ## 通常重力時のスプライトYオフセット（反転時は符号反転して使う）
+const PIXEL_SPRITE_OFFSET_Y: float = -15.0 ## ピクセル絵の足元を当たり判定の底面へ合わせる
 const MOVEMENT_ANIMATION_THRESHOLD: float = 14.0
 const CLIMB_EXIT_DURATION: float = 0.34
+const PIXEL_SPRITE_SCALE: Vector2 = Vector2(0.32, 0.32)
+const PIXEL_CLIMB_EXIT_SCALE: Vector2 = Vector2(0.16, 0.16)
+const PIXEL_PULL_SCALE: Vector2 = Vector2(0.16, 0.16)
+const PIXEL_ACTION_SCALE: Vector2 = Vector2(0.16, 0.16)
+const PIXEL_IDLE_X_OFFSETS := [-7.3, -2.2, 2.8, 6.7]
 
 var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 var health: int = max_health
@@ -131,7 +137,7 @@ func _physics_process(delta: float) -> void:
 	if not is_dashing and Input.is_action_just_pressed("attack"):
 		_try_attack()
 		_is_attacking = true
-		_sprite.play("attack")
+		_sprite.play("attack_pixel")
 
 	var direction: float = Input.get_axis("move_left", "move_right")
 	if is_dashing:
@@ -158,7 +164,7 @@ func _physics_process(delta: float) -> void:
 	_apply_walk_bob(delta)
 
 func _on_animation_finished() -> void:
-	if _sprite.animation == "attack":
+	if _sprite.animation == "attack_pixel":
 		_is_attacking = false
 	if not _sprite.sprite_frames.get_animation_loop(_sprite.animation):
 		_external_lock_time = 0.0
@@ -205,13 +211,27 @@ func _apply_walk_bob(delta: float) -> void:
 	## 上乗せする。時間経過ではなく「現在再生中のアニメーションの何コマ目か
 	## （frame / frame_count）」から位相を計算しているため、再生速度が変わっても
 	## 絶対にズレない。停止時はmove_towardで滑らかに元の姿勢へ戻す。
-	var base_offset := SPRITE_OFFSET_Y * gravity_dir
+	var is_pixel_animation := String(_sprite.animation).ends_with("_pixel")
+	var base_offset := (PIXEL_SPRITE_OFFSET_Y if is_pixel_animation else SPRITE_OFFSET_Y) * gravity_dir
+	var base_scale := Vector2.ONE
+	if _sprite.animation == &"climb_exit_pixel":
+		base_scale = PIXEL_CLIMB_EXIT_SCALE
+	elif _sprite.animation == &"pull_pixel":
+		base_scale = PIXEL_PULL_SCALE
+	elif _sprite.animation == &"attack_pixel" or _sprite.animation == &"hit_pixel":
+		base_scale = PIXEL_ACTION_SCALE
+	elif String(_sprite.animation).ends_with("_pixel"):
+		base_scale = PIXEL_SPRITE_SCALE
+	var sprite_x := 0.0
+	if _sprite.animation == &"idle_pixel":
+		sprite_x = PIXEL_IDLE_X_OFFSETS[clampi(_sprite.frame, 0, PIXEL_IDLE_X_OFFSETS.size() - 1)] * facing_dir
+	_sprite.position.x = sprite_x
 	if _climb_exit_time > 0.0:
 		# 本体の当たり判定は床に置いたまま、上半身だけを持ち上げて見せる。
 		var progress := 1.0 - _climb_exit_time / CLIMB_EXIT_DURATION
 		var lift := sin(clampf(progress, 0.0, 1.0) * PI) * 10.0
 		_sprite.position.y = base_offset - lift * gravity_dir
-		_sprite.scale = Vector2.ONE
+		_sprite.scale = base_scale
 		_sprite.rotation = lerp_angle(_sprite.rotation, 0.0, minf(delta * 14.0, 1.0))
 		return
 	var is_walking: bool = is_on_floor() and not is_climbing and absf(velocity.x) > MOVEMENT_ANIMATION_THRESHOLD and not _is_attacking and _external_lock_time <= 0.0
@@ -228,7 +248,7 @@ func _apply_walk_bob(delta: float) -> void:
 		_sprite.rotation = lerp_angle(_sprite.rotation, 0.0, minf(delta * 14.0, 1.0))
 	if _dash_time > 0.0:
 		_sprite.position.y = base_offset
-		_sprite.scale = Vector2(1.12, 0.88)
+		_sprite.scale = base_scale * Vector2(1.12, 0.88)
 		return
 
 	if is_walking:
@@ -258,11 +278,11 @@ func _apply_walk_bob(delta: float) -> void:
 
 		# 沈み込む瞬間(bob=-1)は縦に潰れ、最高点(bob=1)は縦に伸びる。
 		var stretch: float = 1.0 + bob * squash
-		_sprite.scale = Vector2(2.0 - stretch, stretch)
+		_sprite.scale = base_scale * Vector2(2.0 - stretch, stretch)
 	else:
 		# 立ち止まった瞬間にパッと戻さず、滑らかに元の姿勢へ戻す。
 		_sprite.position.y = move_toward(_sprite.position.y, base_offset, 300.0 * delta)
-		_sprite.scale = _sprite.scale.move_toward(pose_scale, 8.0 * delta)
+		_sprite.scale = _sprite.scale.move_toward(base_scale * pose_scale, 8.0 * delta)
 
 func play_action(action_name: StringName) -> void:
 	## kneel/pickup/pull/push/victory など、移動と無関係な単発モーションを
@@ -455,12 +475,12 @@ func _flash_damage() -> void:
 
 func _react_to_hit() -> void:
 	## 点滅だけでなく、軽いノックバック（重力の逆方向へ弾かれる）と
-	## 一瞬のひるみポーズ（kneelを流用）で、痛そうな反応にする。
+	## 一瞬のひるみポーズで、痛そうな反応にする。
 	if _is_respawning:
 		return
 	velocity.y = jump_velocity * gravity_dir * 0.35
 	velocity.x = -facing_dir * speed * 0.6
-	lock_animation("kneel", 0.25)
+	lock_animation("hit_pixel", 0.34)
 
 func heal(amount: int) -> void:
 	health = min(max_health, health + amount)

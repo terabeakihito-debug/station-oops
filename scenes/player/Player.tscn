@@ -1,4 +1,4 @@
-[gd_scene load_steps=323 format=3]
+[gd_scene load_steps=338 format=3]
 
 [ext_resource type="Script" path="res://scripts/player/Player.gd" id="1_player_script"]
 [ext_resource type="Shader" path="res://scripts/player/player_pixel.gdshader" id="2_pixel_shader"]
@@ -18,6 +18,9 @@
 [ext_resource type="Texture2D" path="res://assets/sprites/player/player_pixel_motion_sheet_v1.png" id="sheet_pixel_motion"]
 [ext_resource type="Texture2D" path="res://assets/sprites/player/player_pixel_climb_sheet_v1.png" id="sheet_pixel_climb"]
 [ext_resource type="Texture2D" path="res://assets/sprites/player/player_pixel_climb_exit_sheet_v1.png" id="sheet_pixel_climb_exit"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/player_pixel_pull_sheet_v1.png" id="sheet_pixel_pull"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/player_pixel_attack_sheet_v1.png" id="sheet_pixel_attack"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/player_pixel_hit_sheet_v1.png" id="sheet_pixel_hit"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(28, 56)
@@ -30,152 +33,152 @@ size = Vector2(40, 48)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_player_pixel"]
 shader = ExtResource("2_pixel_shader")
-shader_parameter/pixel_step = 4.0
+shader_parameter/pixel_step = 1.0
 shader_parameter/palette_steps = 10.0
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_motion_00"]
 atlas = ExtResource("sheet_pixel_motion")
-region = Rect2(0, 0, 313.5, 313.5)
+region = Rect2(0, 0, 313, 313)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_motion_01"]
 atlas = ExtResource("sheet_pixel_motion")
-region = Rect2(313.5, 0, 313.5, 313.5)
+region = Rect2(313, 0, 314, 313)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_motion_02"]
 atlas = ExtResource("sheet_pixel_motion")
-region = Rect2(627, 0, 313.5, 313.5)
+region = Rect2(627, 0, 313, 313)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_motion_03"]
 atlas = ExtResource("sheet_pixel_motion")
-region = Rect2(940.5, 0, 313.5, 313.5)
+region = Rect2(940, 0, 314, 313)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_motion_04"]
 atlas = ExtResource("sheet_pixel_motion")
-region = Rect2(0, 313.5, 313.5, 313.5)
+region = Rect2(0, 313, 313, 314)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_motion_05"]
 atlas = ExtResource("sheet_pixel_motion")
-region = Rect2(313.5, 313.5, 313.5, 313.5)
+region = Rect2(313, 313, 314, 314)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_motion_06"]
 atlas = ExtResource("sheet_pixel_motion")
-region = Rect2(627, 313.5, 313.5, 313.5)
+region = Rect2(627, 313, 313, 314)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_motion_07"]
 atlas = ExtResource("sheet_pixel_motion")
-region = Rect2(940.5, 313.5, 313.5, 313.5)
+region = Rect2(940, 313, 314, 314)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_motion_08"]
 atlas = ExtResource("sheet_pixel_motion")
-region = Rect2(0, 627, 313.5, 313.5)
+region = Rect2(0, 627, 313, 313)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_motion_09"]
 atlas = ExtResource("sheet_pixel_motion")
-region = Rect2(313.5, 627, 313.5, 313.5)
+region = Rect2(313, 627, 314, 313)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_motion_10"]
 atlas = ExtResource("sheet_pixel_motion")
-region = Rect2(627, 627, 313.5, 313.5)
+region = Rect2(627, 627, 313, 313)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_motion_11"]
 atlas = ExtResource("sheet_pixel_motion")
-region = Rect2(940.5, 627, 313.5, 313.5)
+region = Rect2(940, 627, 314, 313)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_motion_12"]
 atlas = ExtResource("sheet_pixel_motion")
-region = Rect2(0, 940.5, 313.5, 313.5)
+region = Rect2(0, 940, 313, 314)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_motion_13"]
 atlas = ExtResource("sheet_pixel_motion")
-region = Rect2(313.5, 940.5, 313.5, 313.5)
+region = Rect2(313, 940, 314, 314)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_motion_14"]
 atlas = ExtResource("sheet_pixel_motion")
-region = Rect2(627, 940.5, 313.5, 313.5)
+region = Rect2(627, 940, 313, 314)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_motion_15"]
 atlas = ExtResource("sheet_pixel_motion")
-region = Rect2(940.5, 940.5, 313.5, 313.5)
+region = Rect2(940, 940, 314, 314)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_climb_00"]
 atlas = ExtResource("sheet_pixel_climb")
-region = Rect2(0, 0, 250.8, 313.5)
+region = Rect2(0, 0, 250, 313)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_climb_01"]
 atlas = ExtResource("sheet_pixel_climb")
-region = Rect2(250.8, 0, 250.8, 313.5)
+region = Rect2(250, 0, 251, 313)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_climb_02"]
 atlas = ExtResource("sheet_pixel_climb")
-region = Rect2(501.6, 0, 250.8, 313.5)
+region = Rect2(501, 0, 251, 313)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_climb_03"]
 atlas = ExtResource("sheet_pixel_climb")
-region = Rect2(752.4, 0, 250.8, 313.5)
+region = Rect2(752, 0, 251, 313)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_climb_04"]
 atlas = ExtResource("sheet_pixel_climb")
-region = Rect2(1003.2, 0, 250.8, 313.5)
+region = Rect2(1003, 0, 251, 313)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_climb_05"]
 atlas = ExtResource("sheet_pixel_climb")
-region = Rect2(0, 313.5, 250.8, 313.5)
+region = Rect2(0, 313, 250, 314)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_climb_06"]
 atlas = ExtResource("sheet_pixel_climb")
-region = Rect2(250.8, 313.5, 250.8, 313.5)
+region = Rect2(250, 313, 251, 314)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_climb_07"]
 atlas = ExtResource("sheet_pixel_climb")
-region = Rect2(501.6, 313.5, 250.8, 313.5)
+region = Rect2(501, 313, 251, 314)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_climb_08"]
 atlas = ExtResource("sheet_pixel_climb")
-region = Rect2(752.4, 313.5, 250.8, 313.5)
+region = Rect2(752, 313, 251, 314)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_climb_09"]
 atlas = ExtResource("sheet_pixel_climb")
-region = Rect2(1003.2, 313.5, 250.8, 313.5)
+region = Rect2(1003, 313, 251, 314)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_climb_10"]
 atlas = ExtResource("sheet_pixel_climb")
-region = Rect2(0, 627, 250.8, 313.5)
+region = Rect2(0, 627, 250, 313)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_climb_11"]
 atlas = ExtResource("sheet_pixel_climb")
-region = Rect2(250.8, 627, 250.8, 313.5)
+region = Rect2(250, 627, 251, 313)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_climb_12"]
 atlas = ExtResource("sheet_pixel_climb")
-region = Rect2(501.6, 627, 250.8, 313.5)
+region = Rect2(501, 627, 251, 313)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_climb_13"]
 atlas = ExtResource("sheet_pixel_climb")
-region = Rect2(752.4, 627, 250.8, 313.5)
+region = Rect2(752, 627, 251, 313)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_climb_14"]
 atlas = ExtResource("sheet_pixel_climb")
-region = Rect2(1003.2, 627, 250.8, 313.5)
+region = Rect2(1003, 627, 251, 313)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_climb_15"]
 atlas = ExtResource("sheet_pixel_climb")
-region = Rect2(0, 940.5, 250.8, 313.5)
+region = Rect2(0, 940, 250, 314)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_climb_16"]
 atlas = ExtResource("sheet_pixel_climb")
-region = Rect2(250.8, 940.5, 250.8, 313.5)
+region = Rect2(250, 940, 251, 314)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_climb_17"]
 atlas = ExtResource("sheet_pixel_climb")
-region = Rect2(501.6, 940.5, 250.8, 313.5)
+region = Rect2(501, 940, 251, 314)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_climb_18"]
 atlas = ExtResource("sheet_pixel_climb")
-region = Rect2(752.4, 940.5, 250.8, 313.5)
+region = Rect2(752, 940, 251, 314)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_climb_19"]
 atlas = ExtResource("sheet_pixel_climb")
-region = Rect2(1003.2, 940.5, 250.8, 313.5)
+region = Rect2(1003, 940, 251, 314)
 
 [sub_resource type="AtlasTexture" id="Atlas_pixel_climb_exit_00"]
 atlas = ExtResource("sheet_pixel_climb_exit")
@@ -192,6 +195,54 @@ region = Rect2(0, 639, 615, 639)
 [sub_resource type="AtlasTexture" id="Atlas_pixel_climb_exit_03"]
 atlas = ExtResource("sheet_pixel_climb_exit")
 region = Rect2(615, 639, 615, 639)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_pull_00"]
+atlas = ExtResource("sheet_pixel_pull")
+region = Rect2(0, 0, 627, 627)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_pull_01"]
+atlas = ExtResource("sheet_pixel_pull")
+region = Rect2(627, 0, 627, 627)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_pull_02"]
+atlas = ExtResource("sheet_pixel_pull")
+region = Rect2(0, 627, 627, 627)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_pull_03"]
+atlas = ExtResource("sheet_pixel_pull")
+region = Rect2(627, 627, 627, 627)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_attack_00"]
+atlas = ExtResource("sheet_pixel_attack")
+region = Rect2(0, 0, 627, 627)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_attack_01"]
+atlas = ExtResource("sheet_pixel_attack")
+region = Rect2(627, 0, 627, 627)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_attack_02"]
+atlas = ExtResource("sheet_pixel_attack")
+region = Rect2(0, 627, 627, 627)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_attack_03"]
+atlas = ExtResource("sheet_pixel_attack")
+region = Rect2(627, 627, 627, 627)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_hit_00"]
+atlas = ExtResource("sheet_pixel_hit")
+region = Rect2(0, 0, 627, 627)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_hit_01"]
+atlas = ExtResource("sheet_pixel_hit")
+region = Rect2(627, 0, 627, 627)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_hit_02"]
+atlas = ExtResource("sheet_pixel_hit")
+region = Rect2(0, 627, 627, 627)
+
+[sub_resource type="AtlasTexture" id="Atlas_pixel_hit_03"]
+atlas = ExtResource("sheet_pixel_hit")
+region = Rect2(627, 627, 627, 627)
 
 [sub_resource type="AtlasTexture" id="Atlas_idle_00"]
 atlas = ExtResource("sheet_idle")
@@ -2434,6 +2485,57 @@ animations = [{
 "loop": false,
 "name": &"climb_exit_pixel",
 "speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_pull_00")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_pull_01")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_pull_02")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_pull_03")
+}],
+"loop": true,
+"name": &"pull_pixel",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_attack_00")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_attack_01")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_attack_02")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_attack_03")
+}],
+"loop": false,
+"name": &"attack_pixel",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_hit_00")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_hit_01")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_hit_02")
+}, {
+"duration": 1.0,
+"texture": SubResource("Atlas_pixel_hit_03")
+}],
+"loop": false,
+"name": &"hit_pixel",
+"speed": 12.0
 }]
 
 [node name="Player" type="CharacterBody2D"]
@@ -2444,7 +2546,7 @@ z_index = 10
 shape = SubResource("RectangleShape2D_body")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -20)
+position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_player")
 animation = &"idle_pixel"
 texture_filter = 1

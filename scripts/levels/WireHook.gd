@@ -46,7 +46,7 @@ func on_interact() -> void:
 	_icon.modulate = COLOR_BUSY
 	var player := get_tree().get_first_node_in_group("player")
 	if player and player.has_method("lock_animation"):
-		player.lock_animation("pull", pull_duration)
+		player.lock_animation("pull_pixel", pull_duration)
 	var start_pos: Vector2 = _platform.position
 	var end_pos: Vector2 = start_pos + pull_offset
 	var tween := create_tween()

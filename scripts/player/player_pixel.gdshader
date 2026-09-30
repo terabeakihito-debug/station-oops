@@ -1,6 +1,6 @@
 shader_type canvas_item;
 
-uniform float pixel_step : hint_range(1.0, 6.0, 1.0) = 4.0;
+uniform float pixel_step : hint_range(1.0, 6.0, 1.0) = 1.0;
 uniform float palette_steps : hint_range(4.0, 24.0, 1.0) = 10.0;
 
 void fragment() {
